@@ -2,8 +2,9 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
-import fs from 'fs';  // 引入 fs 模块以读取本地证书文件
-import path from 'path'; // 引入 path 模块用于路径拼接
+import mkcert from 'vite-plugin-mkcert';
+import fs from 'fs';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
@@ -13,25 +14,25 @@ export default defineConfig({
         icon: true,
       },
     }),
+    mkcert()
   ],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'), // 设置路径别名
+      '@': resolve(__dirname, 'src'),
     },
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
   },
   server: {
     host: '0.0.0.0',
     port: 3333,
     open: true,
     cors: true,
+    https: true,
     headers: {
       'Content-Type': 'application/javascript',
+      'Access-Control-Allow-Origin': '*',
     },
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')), // 使用本地证书私钥
-      cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),   // 使用本地证书文件
-    },
-  },
+  },  
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
@@ -48,12 +49,5 @@ export default defineConfig({
     target: 'es2015',
     cssCodeSplit: false,
     chunkSizeWarningLimit: 1000,
-  },
-  css: {
-    preprocessorOptions: {
-      less: {
-        javascriptEnabled: true,
-      },
-    },
   },
 });
