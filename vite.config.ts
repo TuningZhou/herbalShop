@@ -24,6 +24,9 @@ export default defineConfig({
     port: 3333,
     open: true,
     cors: true,
+    headers: {
+      'Content-Type': 'application/javascript',
+    },
     https: {
       key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')), // 使用本地证书私钥
       cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),   // 使用本地证书文件
