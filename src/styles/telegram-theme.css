@@ -1,0 +1,159 @@
+/* Telegram Mini App 主题变量 */
+:root {
+  /* 基础颜色 */
+  --tg-theme-bg-color: #ffffff;
+  --tg-theme-text-color: #000000;
+  --tg-theme-hint-color: #999999;
+  --tg-theme-link-color: #007AFF;
+  --tg-theme-unlink-color: #313131;
+  --tg-theme-button-color: #50a8eb;
+  --tg-theme-button-text-color: #ffffff;
+  
+  /* Bot API 6.1+ */
+  --tg-theme-secondary-bg-color: #f0f0f0;
+  
+  /* Bot API 7.0+ */
+  --tg-theme-header-bg-color: #ffffff;
+  --tg-theme-accent-text-color: #3a8ef0;
+  --tg-theme-section-bg-color: #f5f5f5;
+  --tg-theme-section-header-text-color: #222222;
+  --tg-theme-subtitle-text-color: #707579;
+  --tg-theme-destructive-text-color: #df3f40;
+  
+  /* Bot API 7.6+ */
+  --tg-theme-section-separator-color: #e5e5e5;
+  
+  /* Bot API 7.10+ */
+  --tg-theme-bottom-bar-bg-color: #ffffff;
+}
+/* 暗色主题支持 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tg-theme-bg-color: #212121;
+    --tg-theme-text-color: #ffffff;
+    --tg-theme-hint-color: #aaaaaa;
+    --tg-theme-link-color: #8cc2e6;
+    --tg-theme-button-color: #3390ec;
+    --tg-theme-button-text-color: #ffffff;
+    --tg-theme-secondary-bg-color: #2c2c2e;
+  }
+}
+/* 基础样式 */
+body {
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+  font-family: -apple-system,'SF Pro', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+/* 链接样式 */
+a {
+  color: var(--tg-theme-link-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 按钮样式 */
+button, .button {
+  background-color: var(--tg-theme-button-color);
+  color: var(--tg-theme-button-text-color);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+button:hover, .button:hover {
+  opacity: 0.9;
+}
+
+/* 提示文本样式 */
+.hint-text {
+  color: var(--tg-theme-hint-color);
+  font-size: 13px;
+}
+
+/* 标题样式 */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--tg-theme-text-color);
+}
+
+/* 副标题样式 */
+.subtitle {
+  color: var(--tg-theme-subtitle-text-color);
+  font-size: 14px;
+}
+
+/* 区块样式 */
+.section {
+  background-color: var(--tg-theme-section-bg-color);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.section-header {
+  color: var(--tg-theme-section-header-text-color);
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+/* 分隔线样式 */
+.separator {
+  height: 1px;
+  background-color: var(--tg-theme-section-separator-color);
+  margin: 12px 0;
+}
+
+/* 底部导航栏样式 */
+.bottom-bar {
+  background-color: var(--tg-theme-bottom-bar-bg-color);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid var(--tg-theme-section-separator-color);
+}
+
+/* 头部导航栏样式 */
+.header {
+  background-color: var(--tg-theme-header-bg-color);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--tg-theme-section-separator-color);
+}
+
+/* 危险操作按钮样式 */
+.destructive-button {
+  color: var(--tg-theme-destructive-text-color);
+  background-color: transparent;
+}
+
+/* 次要背景区域 */
+.secondary-bg {
+  background-color: var(--tg-theme-secondary-bg-color);
+  padding: 16px;
+  border-radius: 8px;
+}
+
+/* 强调文本 */
+.accent-text {
+  color: var(--tg-theme-accent-text-color);
+  font-weight: 500;
+}

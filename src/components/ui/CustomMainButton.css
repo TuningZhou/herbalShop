@@ -1,0 +1,26 @@
+.custom-main-button-container {
+  position: fixed;
+  bottom: 56px; /* Footer高度 */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 8px 16px;
+  z-index: 999;
+}
+
+.custom-main-button {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.custom-main-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

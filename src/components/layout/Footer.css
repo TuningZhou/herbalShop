@@ -1,0 +1,108 @@
+.tg-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background-color: #fff;
+  border-top: 1px solid #e0e0e0;
+  z-index: 100; /* 确保低于 MainButton 的 z-index */
+}
+
+.footer-container {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 56px;
+  padding: 0 16px;
+}
+
+.footer-item {
+  display: flex;
+  flex-direction: row; /* 修改为水平排列 */
+  align-items: center; /* 居中对齐 */
+  gap: 8px; /* 增加间距 */
+  color: #8e9399; /* 修改为浅灰色，与截图匹配 */
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+  position: relative; /* 确保相对定位 */
+}
+
+.footer-item.active {
+  color: #6ab3f3; /* 修改为蓝色，与截图匹配 */
+}
+
+/* 图标样式 */
+.footer-item svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* 徽章容器 */
+.badge-container {
+  position: relative;
+  display: inline-flex;
+}
+
+/* 徽章样式 */
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background-color: #DF3F40;
+  color: white;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 0 4px;
+}
+
+/* 确保内容区域有足够的底部边距，避免被固定的底部导航栏遮挡 */
+body {
+  padding-bottom: 70px;
+}
+
+/* 主按钮容器样式 */
+.custom-main-button-container {
+  position: fixed;
+  bottom: 56px; /* Footer高度 */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 8px 16px;
+  z-index: 999;
+}
+
+/* 主按钮样式 */
+.custom-main-button {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.custom-main-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 适配Telegram Mini App环境 */
+@media (max-width: 480px) {
+  .footer-container {
+    max-width: 100%;
+  }
+}

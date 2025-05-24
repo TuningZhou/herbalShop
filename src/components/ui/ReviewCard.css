@@ -1,0 +1,160 @@
+.review-card {
+  border: 1px solid var(--tg-theme-section-separator-color);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: var(--tg-theme-bg-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: #000000; /* 用户名称为纯黑色 */
+}
+
+.review-date {
+  font-size: 14px;
+  color: #85858B; /* 评论时间颜色 */
+  margin: 0;
+}
+
+.review-rating {
+  margin-bottom: 12px;
+  display: flex;
+}
+
+.star {
+  font-size: 24px;
+  margin-right: 4px;
+}
+
+.star.filled {
+  color: #FFBD0B; /* 被激活的星级颜色 */
+}
+
+.star.empty {
+  color: #85858B; /* 未被激活的星级颜色 */
+}
+
+.review-comment {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000000; /* 评论内容为纯黑色 */
+  margin-bottom: 16px;
+}
+
+.review-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+.like-button {
+  color: var(--tg-theme-link-color); /* 已点赞按钮颜色 */
+}
+
+.dislike-button {
+  color: #85858B; /* 不赞按钮颜色 */
+}
+
+.action-button:hover {
+  opacity: 0.8;
+}
+
+.action-icon {
+  margin-right: 4px;
+  font-size: 16px;
+}
+
+.action-count {
+  font-weight: 500;
+}
+
+
+/* 确保在 Storybook 环境中也能正确显示 */
+.review-card {
+  max-width: 500px;
+  width: 100%;
+}
+
+/* 处理长评论 */
+.review-comment {
+  word-break: break-word;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* 处理用户已点赞/不赞的状态 */
+.action-button.like-button.active {
+  color: var(--tg-theme-link-color);
+  font-weight: bold;
+}
+
+.action-button.dislike-button.active {
+  color: #85858B;
+  font-weight: bold;
+}
+
+/* 确保头像始终显示 */
+.user-avatar {
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-avatar:empty::before {
+  content: "用户";
+  font-size: 14px;
+  color: #666;
+}
+
+/* 适配暗色主题 */
+@media (prefers-color-scheme: dark) {
+  .username {
+    color: #ffffff;
+  }
+  
+  .review-comment {
+    color: #ffffff;
+  }
+  
+  .user-avatar:empty::before {
+    color: #aaa;
+  }
+}

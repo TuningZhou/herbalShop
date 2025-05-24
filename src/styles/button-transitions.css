@@ -1,0 +1,70 @@
+/* 按钮悬停效果 */
+.verify-button, .contact-button {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.verify-button:hover, .contact-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 验证成功动效方案 */
+
+/* 方案1: 脉冲闪烁效果 */
+@keyframes success-pulse {
+  0% { background-color: #0088CC; transform: scale(1); }
+  50% { background-color: #4CAF50; transform: scale(1.05); }
+  100% { background-color: #0088CC; transform: scale(1); }
+}
+
+.verify-button.success {
+  background-color: #4CAF50;
+  animation: success-pulse 1.5s ease;
+}
+
+/* 方案2: 波纹扩散效果 */
+@keyframes ripple-effect {
+  0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
+
+.verify-button.success-ripple {
+  background-color: #4CAF50;
+  animation: ripple-effect 1s ease-out;
+}
+
+/* 方案3: 旋转淡入效果 */
+@keyframes rotate-fade {
+  0% { opacity: 0.8; transform: rotate(0deg); }
+  100% { opacity: 1; transform: rotate(360deg); }
+}
+
+.verify-button.success-rotate {
+  background-color: #4CAF50;
+  animation: rotate-fade 0.7s ease-in-out;
+}
+
+/* 方案4: 滑动切换效果 */
+@keyframes slide-text {
+  0% { transform: translateY(0); opacity: 1; }
+  45% { transform: translateY(-100%); opacity: 0; }
+  55% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.verify-button.success-slide span {
+  display: inline-block;
+  animation: slide-text 0.8s ease-in-out forwards;
+}
+
+/* 方案5: 渐变色变化效果 */
+@keyframes gradient-shift {
+  0% { background: #0088CC; }
+  50% { background: linear-gradient(to right, #0088CC, #4CAF50); }
+  100% { background: #4CAF50; }
+}
+
+.verify-button.success-gradient {
+  animation: gradient-shift 1s ease forwards;
+}

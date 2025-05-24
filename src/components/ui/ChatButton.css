@@ -1,0 +1,20 @@
+.chat-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--tg-theme-secondary-bg-color);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-weight: 500;
+    color: var(--tg-theme-accent-text-color);
+    transition: all 0.2s ease;
+  }
+  
+  .chat-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .chat-icon {
+    fill: var(--tg-theme-accent-text-color);
+  }

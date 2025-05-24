@@ -1,0 +1,97 @@
+.product-card {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  width: 164px;
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+}
+
+.product-card .product-image-container {
+  height: 216px;
+  width: 164px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  /* 修改阴影效果，确保正确应用 */
+  box-shadow: 0px 0px 4px 4px rgba(0, 123, 255, 0.3);  
+}
+
+.product-card .product-image {
+  height: 216px;
+  width: 164px;
+  object-fit: cover;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  /* 修改阴影效果，确保正确应用 */
+  box-shadow: 0px 0px 4px 4px rgba(0, 123, 255, 0.3);
+}
+
+/* 添加Telegram主题支持 */
+@supports (--tg-theme-link-color: #000) {
+  .product-card .product-image {
+    box-shadow: 0px 0px 4px 4px rgba(var(--tg-theme-link-color-rgb, 0, 123, 255), 0.3);
+  }
+}
+
+.product-card .product-info {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  padding: 8px 4px;
+}
+
+.product-card .product-name {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  align-self: stretch;
+  color: #212121;
+  display: -webkit-box;
+  font-family: var(--body-15pt-regular-font-family);
+  font-size: var(--body-15pt-regular-font-size);
+  font-style: var(--body-15pt-regular-font-style);
+  font-weight: var(--body-15pt-regular-font-weight);
+  height: 20px;
+  letter-spacing: var(--body-15pt-regular-letter-spacing);
+  line-height: var(--body-15pt-regular-line-height);
+  margin-top: 0;
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-card .product-price {
+  align-self: stretch;
+  color: #212121;
+  font-family: var(--body-15pt-regular-font-family);
+  font-size: var(--body-15pt-regular-font-size);
+  font-style: var(--body-15pt-regular-font-style);
+  font-weight: var(--body-15pt-regular-font-weight);
+  height: 20px;
+  margin: 0;
+  letter-spacing: var(--body-15pt-regular-letter-spacing);
+  line-height: var(--body-15pt-regular-line-height);
+  position: relative;
+  white-space: nowrap;
+}
+
+/* 添加CSS变量以支持Telegram主题颜色 */
+:root {
+  --tg-theme-link-color-rgb: 0, 123, 255; /* 默认蓝色，会被Telegram主题覆盖 */
+}

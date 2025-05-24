@@ -1,0 +1,16 @@
+/* Telegram MainButton 样式调整 */
+.telegram-main-button-wrapper {
+  position: fixed;
+  bottom: 56px; /* Footer 的高度，确保按钮在 Footer 上方 */
+  left: 0;
+  right: 0;
+  z-index: 1200;
+  display: flex;
+  justify-content: center;
+  padding: 8px 16px;
+}
+
+/* 调整 Telegram WebApp 主按钮位置 */
+body.with-telegram-webapp #telegram-webapp-main-button {
+  bottom: 56px !important; /* 强制覆盖 Telegram 默认样式 */
+}

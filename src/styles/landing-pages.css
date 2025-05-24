@@ -1,0 +1,350 @@
+/* Landing Pages 通用样式 */
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f6ff;
+  padding: 16px;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.landing-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.landing-content h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var( --tg-theme-unlink-color,#313131);
+  text-shadow: 1px 1px 1px var(--tg-theme-button-color, #50a8eb);
+}
+
+.herb-image-container {
+  width: 100%;
+  height: 400px;
+  margin: 20px 0;
+  /* overflow: hidden;*/
+  border-radius: 12px;
+  background-color: #e8f4ff;
+  position: relative;
+  overflow: visible; /* 修改：确保内容不被裁剪 */
+}
+
+/* LandingPage01 特定样式 - 靠左 */
+.landing-page-01 .herb-image-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.landing-page-01 .landing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+}
+
+/* LandingPage02 特定样式 - 居中 */
+.landing-page-02 .herb-image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.landing-page-02 .landing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* LandingPageFinal 特定样式 - 背景图靠右 */
+.landing-page-final {
+  position: relative;
+}
+
+.landing-page-final::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../assets/images/herbs-collection.png');
+  background-size: cover;
+  background-position: right center;
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.landing-page-final .landing-content {
+  position: relative;
+  z-index: 1; /* 确保内容在背景图之上 */
+}
+
+.landing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landing-description {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 20px;
+  color: #333;
+  text-align: center;
+  max-width: 300px;
+}
+
+/* 按钮样式 */
+.telegram-button {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.next-button {
+  width: 100%;
+  background-color: #8f7d07;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow-icon {
+  margin-left: 10px;
+}
+
+/* 页面指示器样式 */
+.page-indicators {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--tg-theme-unlink-color, #313131);
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.indicator.active {
+  background-color: var(--tg-theme-link-color, #007AFF);
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 300px;
+}
+
+.next-button, .back-button, .enter-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.next-button, .enter-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.back-button {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+.next-button:hover, .enter-button:hover {
+  background-color: #45a049;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* 表单样式 */
+.access-form {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 20px;
+  padding: 16px; /* 新增 */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* 新增半透明白色边框 */
+  background-color: rgba(255, 255, 255, 0.02); /* 新增 */
+  backdrop-filter: blur(20px); /* 新增 */
+  border-radius: 16px; /* 建议添加一个圆角以配合模糊效果 */
+  backdrop-filter: blur(20px); /* 新增 */
+  box-shadow: 0 0 20px rgba(79, 168, 235, 1); /* 添加蓝色阴影效果 */
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555;
+}
+
+.required {
+  color: #f44336;
+}
+
+.access-key-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  margin: 0;
+  box-shadow: 0 0 10px rgba(79, 168, 235, 1); /* 添加蓝色阴影效果 */
+}
+
+.access-key-input:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+.access-key-input.error {
+  border-color: #f44336;
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+
+/* 保留其他 landing-page-final 相关样式 */
+.landing-page-final h1 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.landing-page-final .form-group {
+  margin-bottom: 20px;
+}
+
+.landing-page-final label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 4px var(--tg-theme-button-color, #50a8eb);
+}
+
+.landing-page-final .referral-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 15px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 16px;
+  backdrop-filter: blur(5px);
+  margin-bottom: 0;
+  box-shadow: 0 0 10px rgba(79, 168, 235, 1); /* 添加蓝色阴影效果 */
+}
+
+.landing-page-final input::placeholder {
+  color: rgba(0, 0, 0, 0.5) ;
+}
+
+.landing-page-final .access-key-container {
+  display: flex;
+  gap: 10px;
+}
+
+.landing-page-final .access-key-input {
+  flex: 1;
+}
+
+.landing-page-final .verify-button {
+  background-color: #0088CC;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.landing-page-final .contact-section {
+  margin-top: 30px;
+  font-size: 14px;
+}
+
+.landing-page-final .contact-section p {
+  margin: 5px 0;
+  color: white;
+  text-shadow: 1px 1px 4px var(--tg-theme-button-color, #50a8eb);
+}
+
+.landing-page-final .contact-button {
+  background: none;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.landing-page-final .contact-button svg {
+  width: 80px;
+  height: 80px;
+}
+
+.error-message {
+  color: #ff4d4f;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: left;
+}
+
+/* 删除所有动画相关样式 */
+/* 页面指示器样式优化 */
+.landing-page-final .page-indicators { /* 将此处的样式限定到 .landing-page-final */
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.landing-page-final .indicator { /* 将此处的样式限定到 .landing-page-final */
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 0 5px;
+  /* cursor: pointer; 已在之前的 .indicator 样式中定义，会被继承 */
+}
+
+.landing-page-final .indicator.active { /* 将此处的样式限定到 .landing-page-final */
+  background-color: white;
+}

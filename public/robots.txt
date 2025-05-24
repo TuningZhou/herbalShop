@@ -1,0 +1,11 @@
+# robots.txt 增强版（生产环境）
+User-agent: *
+Allow: /
+
+# 禁止敏感路径
+Disallow: /admin/
+Disallow: /api/
+Disallow: /src/
+
+# 设置爬虫请求间隔
+Crawl-delay: 5

@@ -1,0 +1,26 @@
+.header {
+    background-color: var(--tg-theme-header-bg-color);
+    padding: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--tg-theme-section-separator-color);
+  }
+  
+  .header-container {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .logo {
+    height: 24px;
+  }
+  
+  .title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--tg-theme-text-color);
+  }

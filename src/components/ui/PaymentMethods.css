@@ -1,0 +1,39 @@
+.payment-methods {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.payment-method {
+  flex: 1;
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 5px;
+  cursor: pointer;
+  background-color: #181D25;
+  transition: all 0.2s ease;
+}
+
+.payment-method:first-child {
+  margin-left: 0;
+}
+
+.payment-method:last-child {
+  margin-right: 0;
+}
+
+.payment-method.selected {
+  border-color: #007AFF;
+  background-color: #007AFF;
+  box-shadow: 0 0 0 1px #007AFF;
+}
+
+.payment-logo {
+  max-width: 80%;
+  max-height: 60%;
+  object-fit: contain;
+}
