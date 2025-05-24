@@ -2,6 +2,7 @@
   "name": "herbalshop",
   "version": "0.0.3",
   "description": "Telegram Mini App HerbalShop",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "deploy": "gh-pages -d dist",
