@@ -1,20 +1,22 @@
 import { defineConfig } from 'vite';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
-import mkcert from 'vite-plugin-mkcert';
+// import mkcert from 'vite-plugin-mkcert';
 import fs from 'fs';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [
+  plugins: [ 
     react(),
+    basicSsl(),
     svgr({
       svgrOptions: {
         icon: true,
       },
     }),
-    mkcert()
+    // mkcert()
   ],
   base: '/herbalShop/', // 修改为仓库名称
   resolve: {
