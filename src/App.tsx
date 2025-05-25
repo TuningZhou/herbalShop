@@ -19,6 +19,7 @@ import LandingPage02 from "./pages/LandingPage02";
 import LandingPageFinal from "./pages/LandingPageFinal";
 import "./styles/telegram-button.css";
 
+console.log("App is rendering...");
 
 // 初始化Telegram SDK
 const initTelegramSDK = () => {
@@ -44,9 +45,9 @@ const App: React.FC = () => {
   React.useEffect(() => {
     initTelegramSDK();
   }, []);
-
+// basename="/herbalShop" :这会告诉 BrowserRouter,应用的所有路由都是相对于 /herbalShop 这个基础路径的.
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/herbalShop">
       <Routes>
         <Route path="/" element={<Navigate to="/landing-1" replace />} />
         
@@ -58,7 +59,6 @@ const App: React.FC = () => {
         <Route path="/landing-2" element={<LandingPage02 />} />
 
         <Route path="/landing-final" element={<LandingPageFinal />} />
-
 
         <Route
           path="/shop"

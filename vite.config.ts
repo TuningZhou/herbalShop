@@ -30,7 +30,6 @@ export default defineConfig({
     cors: true,
     https: true,
     headers: {
-      'Content-Type': 'application/javascript',
       'Access-Control-Allow-Origin': '*',
     },
   },  
