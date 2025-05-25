@@ -101,7 +101,7 @@
   transition: transform 0.2s;
 }
 
-.expand-arrow.expanded {s
+.expand-arrow.expanded {
   transform: rotate(180deg);
 }
 
