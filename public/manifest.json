@@ -20,7 +20,7 @@
     ],
     "lang": "en-US",
     "orientation": "portrait",
-    "scope": "./",
+    "scope": "/herbalShop/",
     "prefer_related_applications": false,
     "related_applications": [{
         "platform": "telegram",
