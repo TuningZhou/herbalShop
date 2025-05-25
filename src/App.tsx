@@ -18,7 +18,7 @@ import LandingPage01 from "./pages/LandingPage01";
 import LandingPage02 from "./pages/LandingPage02";
 import LandingPageFinal from "./pages/LandingPageFinal";
 import "./styles/telegram-button.css";
-// import WebApp from '@twa-dev/sdk'
+
 
 // 初始化Telegram SDK
 const initTelegramSDK = () => {

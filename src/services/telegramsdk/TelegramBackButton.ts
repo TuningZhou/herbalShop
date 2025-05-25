@@ -22,9 +22,6 @@ import {
 // 在init()调用后添加
 init();
 
-// 添加这一行，通知Telegram Mini App已准备好显示
-import { ready } from '@telegram-apps/sdk';
-ready();
 
 // ========================
 // 🔍 支持性检查模块
