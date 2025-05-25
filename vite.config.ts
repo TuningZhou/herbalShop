@@ -16,14 +16,15 @@ export default defineConfig({
     }),
     mkcert()
   ],
+  base: '/', // 确保base为根路径
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, './src'),
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
   },
   server: {
-    host: '0.0.0.0',
+    host: true,
     port: 3333,
     open: true,
     cors: true,
