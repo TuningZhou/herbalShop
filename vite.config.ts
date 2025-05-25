@@ -16,7 +16,7 @@ export default defineConfig({
     }),
     mkcert()
   ],
-  base: '/', // 确保base为根路径
+  base: '/herbalShop/', // 修改为仓库名称
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
