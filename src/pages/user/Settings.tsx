@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { useUser } from "../../context/UserContext";
+import { TelegramBackButtonSDK } from "../../services/telegramsdk/TelegramBackButton"; // 新增导入
 import "./Settings.css";
 
 interface ExpandableSection {
@@ -17,6 +18,29 @@ const Settings: React.FC = () => {
   const { user } = useUser();
   const navigate = useNavigate();
   const { isAuthenticated, verifyAccessKey, logout } = useAuthContext();
+  
+  // 添加 Telegram BackButton 逻辑
+  useEffect(() => {
+    // 检查支持性
+    if (TelegramBackButtonSDK.Support.isSupported()) {
+      // 挂载返回按钮
+      TelegramBackButtonSDK.Lifecycle.mount();
+
+      // 显示返回按钮
+      TelegramBackButtonSDK.Display.show();
+
+      // 添加点击事件
+      const off = TelegramBackButtonSDK.Events.onClick(() => {
+        navigate(-1); // 返回上一页
+      });
+
+      // 返回清理函数
+      return () => {
+        off();
+        TelegramBackButtonSDK.Lifecycle.unmount();
+      };
+    }
+  }, [navigate]); // 依赖 navigate
   
   // 可展开的信息模块状态
   const [sections, setSections] = useState<ExpandableSection[]>([
@@ -230,7 +254,7 @@ const Settings: React.FC = () => {
       <div className="user-info-section">
         <div className="user-avatar">
           <img 
-            src={user?.avatar || '/src/assets/images/avatars/avatar@2x.png'} 
+            src={user?.avatar || 'https://raw.githubusercontent.com/TuningZhou/herbalShop/refs/heads/main/src/assets/images/avatars/avatar%403x.png'} 
             alt="User Avatar" 
             className="avatar-image"
           />
@@ -255,7 +279,7 @@ const Settings: React.FC = () => {
                 <p className="section-subtitle">{section.subtitle}</p>
               </div>
               <div className={`expand-arrow ${section.isExpanded ? 'expanded' : ''}`}>
-                ▼
+                ▶
               </div>
             </div>
             {section.isExpanded && (
@@ -283,7 +307,7 @@ const Settings: React.FC = () => {
                   <p className="section-subtitle">{section.subtitle}</p>
                 </div>
                 <div className={`expand-arrow ${section.isExpanded ? 'expanded' : ''}`}>
-                  ▼
+                  ▶
                 </div>
               </div>
               {section.isExpanded && (

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react"; // 导入 useEffect
 import { useCart } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import OrderCard from "../../components/ui/OrderCard";
 import OrderSummary from "../../components/ui/OrderSummary";
 import PaymentMethods from "../../components/ui/PaymentMethods";
 import Footer from "../../components/layout/Footer";
+import { TelegramBackButtonSDK } from "../../services/telegramsdk/TelegramBackButton"; // 新增导入
 import "./Checkout.css";
 
 // 支付方式类型
@@ -21,6 +22,29 @@ const Checkout: React.FC = () => {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("gpay");
   const [isAgeConfirmed, setIsAgeConfirmed] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+
+  // 添加 Telegram BackButton 逻辑
+  useEffect(() => {
+    // 检查支持性
+    if (TelegramBackButtonSDK.Support.isSupported()) {
+      // 挂载返回按钮
+      TelegramBackButtonSDK.Lifecycle.mount();
+
+      // 显示返回按钮
+      TelegramBackButtonSDK.Display.show();
+
+      // 添加点击事件
+      const off = TelegramBackButtonSDK.Events.onClick(() => {
+        navigate(-1); // 返回上一页
+      });
+
+      // 返回清理函数
+      return () => {
+        off();
+        TelegramBackButtonSDK.Lifecycle.unmount();
+      };
+    }
+  }, [navigate]); // 依赖 navigate
 
   // 计算小计
   const subtotal = items.reduce((total, item) => {

@@ -5,6 +5,7 @@ import { Product } from "../../types/Product";
 import { productApi } from "../../services/api/productApi";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import "./ProductHome.css";
+import env from "../../config/env"; // 导入环境变量
 
 // 导入轮播图图片
 import banner01 from "@/assets/images/01 Nature's Touch Naturally Yours - Banner.png";
@@ -13,6 +14,11 @@ import banner03 from "@/assets/images/03 Pure Herbs, Pure Wellnesss - Banner.png
 import banner04 from "@/assets/images/04 From Earth to You, Naturally - Banner.png";
 import banner05 from "@/assets/images/04 From Earth to You, Naturally - Banner.png";
 
+// 导入产品图片的接口
+
+const getImageUrl = (imageName: string) => {
+  return `${env.r2BaseUrl}/${imageName}`;
+};
 
 // 轮播图数据接口
 interface BannerSlide {
@@ -251,7 +257,6 @@ const ProductHome: React.FC = () => {
       try {
         const data = await productApi.getAllProducts();
     
-        // 模拟Figma设计中的产品数据，使用Cloudflare R2存储的图片
         const mockProducts = [
           {
             id: "1",
@@ -259,7 +264,7 @@ const ProductHome: React.FC = () => {
             price: 8.20,
             currency: "$",
             unit: "Pack",
-            image: "01-02-0001-Chamomile-Tea.png", // 使用R2路径格式
+            image: getImageUrl("01-02-0001-Chamomile-Tea.png"),
             category: "Tea",
           },
           {
@@ -268,7 +273,7 @@ const ProductHome: React.FC = () => {
             price: 132.00,
             currency: "$",
             unit: "Can",
-            image: "01-02-0002-Peppermint-Tea.png", // 使用R2路径格式
+            image: getImageUrl("01-02-0002-Peppermint-Tea.png"),
             category: "Tea",
           },
           {
@@ -277,7 +282,7 @@ const ProductHome: React.FC = () => {
             price: 9.90,
             currency: "$",
             unit: "Pack",
-            image: "01-02-0003-Goji-Berry-Chrysanthemum-Tea.png", // 使用R2路径格式
+            image: getImageUrl("01-02-0003-Goji-Berry-Chrysanthemum-Tea.png"),
             category: "Tea",
           },
           {
@@ -286,7 +291,7 @@ const ProductHome: React.FC = () => {
             price: 69.90,
             currency: "$",
             unit: "Can",
-            image: "01-02-0004-Ginseng-Oolong-Tea.png", // 使用R2路径格式
+            image: getImageUrl("01-02-0004-Ginseng-Oolong-Tea.png"),
             category: "Tea",
           },
         ];

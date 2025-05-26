@@ -1,15 +1,15 @@
 // 环境配置
 const config = {
   development: {
-    r2BaseUrl: "https://pub-2ff14554386b479b8ec529dfd5061359.r2.dev",
-    r2ImagesPath1: "Avatars",
+    r2BaseUrl: "https://raw.githubusercontent.com/TuningZhou/herbalShop/refs/heads/main/src/assets/images",
+    r2ImagesPath1: "avatars",
     r2ImagesPath2: "icons",
     r2ImagesPath: "products" // 新增这一行
   },
   production: {
     // 生产环境的 URL 将在部署时设置
-    r2BaseUrl: "https://your-production-r2-url.r2.dev",
-    r2ImagesPath1: "Avatars",
+    r2BaseUrl: "https://raw.githubusercontent.com/TuningZhou/herbalShop/refs/heads/main/src/assets/images",
+    r2ImagesPath1: "avatars",
     r2ImagesPath2: "icons",
     r2ImagesPath: "products" // 新增这一行
   }

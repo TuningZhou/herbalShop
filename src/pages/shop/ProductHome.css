@@ -2,9 +2,9 @@
 .product-home-page {
   padding: 0;
   background-color: #ffffff;
-  font-family: -apple-system,'SF Pro', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  display: flex;                   /* 启用 Flexbox 布局（类似 Figma 的 Auto Layout） */ 
-  flex-direction: column;          /* 子元素垂直排列（类似 Figma 的 Auto Layout 中设置方向为 "Vertical"） */
+  font-family: -apple-system, 'SF Pro', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 1. 横幅部分 */
@@ -40,28 +40,38 @@
 }
 
 /* 3. 分类筛选部分 */
-/* 分类筛选区域样式 */
 .category-filter-section {
   display: flex;
   align-items: center;
   position: relative;
   margin-bottom: 10px;
-  overflow: auto; /* 改为auto，确保内容溢出时可滚动 */
-}
-
-.category-tabs {
-  display: flex;
+  padding: 0 16px;
+  background-color: #fff;
+  border-bottom: 1px solid #f0f0f0;
   overflow-x: auto;
-  /* 移除以下两行，允许显示滚动条 */
-  /* scrollbar-width: none; */ /* Firefox */
-  /* -ms-overflow-style: none; */ /* IE and Edge */
-  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 123, 255, 0.5) rgba(0, 0, 0, 0.1);
+  z-index: 5;
 }
 
-.category-tabs::-webkit-scrollbar {
-  /* 移除display: none，允许显示滚动条 */
-  /* display: none; */ /* Chrome, Safari, Opera */
-  height: 6px; /* 添加高度，确保滚动条可见 */
+.category-filter-section::-webkit-scrollbar {
+  height: 6px;
+  display: block !important;
+}
+
+.category-filter-section::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.category-filter-section::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 123, 255, 0.5);
+  border-radius: 3px;
+  border: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+.category-filter-section::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 123, 255, 0.7);
 }
 
 .menu-icon-button {
@@ -72,60 +82,35 @@
   z-index: 10;
   position: sticky;
   left: 0;
-  background-color: white;
+  background-color: white; /* 确保背景色与父容器一致 */
 }
 
 .category-tabs {
   display: flex;
-  overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  padding-left: 40px; /* 为菜单按钮留出空间 */
-  margin-left: -40px; /* 使内容从菜单按钮后开始 */
-  width: 100%;
+  gap: 10px; /* 统一tab间距 */
+  padding-left: 0; /* 移除特定padding，由父容器控制 */
+  margin-left: 0; /* 移除特定margin */
 }
 
-.category-tabs::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
+/* 统一标签按钮样式 */
 .tab-button {
-  padding: 8px 15px;
-  border: none;
-  background: none;
-  font-size: 14px;
-  cursor: pointer;
-  white-space: nowrap;
-  color: #666;
-  border-bottom: 2px solid transparent;
-}
-
-.tab-button.active {
-  color: #000;
-  border-bottom: 2px solid #000;
-  font-weight: 500;
-}
-
-/* 修改为以下样式，与子类按钮保持一致 */
-.tab-button {
-  padding: 8px 20px;
+  padding: 8px 16px;
   border: 1px solid #e0e0e0;
   background: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  white-space: nowrap;
+  font-size: 14px;
   color: #333;
   border-radius: 30px;
-  margin-right: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   min-width: 80px;
   transition: all 0.3s ease;
-  flex-shrink: 0; /* 防止按钮被压缩 */
 }
 
 .tab-button.active {
   color: #fff;
   background-color: #007bff;
-  border: 1px solid #007bff;
+  border-color: #007bff;
   font-weight: 500;
 }
 
@@ -213,41 +198,69 @@
   display: block;
 }
 
+/* 子类筛选部分 */
+.subcategory-filter-section {
+  position: relative;
+  z-index: 5;
+  margin: 0;
+  padding: 10px 16px; /* 统一padding */
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #f0f0f0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 123, 255, 0.5) rgba(0, 0, 0, 0.1);
+}
+
+.subcategory-filter-section::-webkit-scrollbar {
+  height: 6px;
+  display: block !important;
+}
+
+.subcategory-filter-section::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.subcategory-filter-section::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 123, 255, 0.5);
+  border-radius: 3px;
+  border: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+.subcategory-filter-section::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 123, 255, 0.7);
+}
+
 .subcategory-tabs {
   display: flex;
   gap: 10px;
-  padding: 0 15px;
+  /* padding由父容器.subcategory-filter-section控制 */
 }
 
 .subcategory-tabs .tab-button {
-  padding: 8px 15px;
-  border: none;
-  background: none;
-  font-size:12px;
-  cursor: pointer;
-  white-space: nowrap;
-  color: #666;
-  border-bottom: 2px solid transparent;
-  width: auto;
+  padding: 6px 12px; /* 调整子分类按钮padding */
+  font-size: 12px; /* 调整子分类按钮字体大小 */
   min-width: 60px;
-  max-width: fit-content;
+  border-bottom: 2px solid transparent; /* 保持原有风格 */
 }
 
 .subcategory-tabs .tab-button.active {
-  color: #000;
-  border-bottom: 2px solid #000;
+  color: #ffffff;
+  background-color: var(#007AFF);
+  border-color: var(#007AFF); 
   font-weight: 500;
-  width: auto;
-  min-width: 60px;
-  max-width: fit-content;
 }
 
 /* breadcrumbs面包屑样式 */
-
 .breadcrumbs-section {
-  padding: 4px 16px;
+  padding: 10px 16px;
   font-size: 12px;
   color: #666;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin-top: 5px;
+  position: relative;
+  z-index: 5;
 }
 
 .breadcrumb-item {
@@ -271,15 +284,15 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  margin-bottom: 4px; /* 减小底部边距，因为内容现在会自然流动 */
+  margin-bottom: 4px;
   overflow: visible;
 }
 
 .banner-carousel {
   position: relative;
   width: 100%;
-  height: 220px; /* 保持固定高度 */
-  overflow: hidden; /* 只让轮播图部分隐藏溢出 */
+  height: 220px;
+  overflow: hidden;
 }
 
 .carousel-slide {
@@ -310,7 +323,7 @@
   transform: translateX(-50%);
   display: flex;
   gap: 10px;
-  z-index: 30; /* 保持较高的z-index，确保在内容之上 */
+  z-index: 30;
 }
 
 .carousel-indicator {
@@ -330,288 +343,118 @@
 /* 轮播图内容样式 */
 .carousel-content {
   width: 100%;
-  padding: 0px 16px;
+  padding: 10px 16px; /* 调整padding */
   color: #333;
   background-color: #fff;
   text-align: center;
   box-sizing: border-box;
   display: flex;
-  flex-direction: column; /* 垂直排列，类似 Figma 的 Auto Layout 中设置方向为 "Vertical" */
+  flex-direction: column;
   align-items: center;
-  margin-top: 0; /* 确保与轮播图紧密相连 */
+  margin-top: 0;
 }
 
 .carousel-title-chinese {
-  font-size: 24px;
-  margin-bottom: 0px;
+  font-size: 20px; /* 调整字号 */
+  margin-bottom: 4px; /* 调整间距 */
   color: #333;
   font-weight: bold;
-  text-align: center; /* 添加居中对齐 */
-  width: 100%; /* 确保宽度占满容器 */
+  text-align: center;
+  width: 100%;
 }
 
 .carousel-title-english {
-  font-size: 20px;
+  font-size: 16px; /* 调整字号 */
   color: #333;
-  margin-bottom: 0px;
+  margin-bottom: 8px; /* 调整间距 */
   font-weight: normal;
-  text-align: center; /* 添加居中对齐 */
-  width: 100%; /* 确保宽度占满容器 */
+  text-align: center;
+  width: 100%;
 }
 
 .carousel-description {
-  font-size: 14px;
+  font-size: 12px; /* 调整字号 */
   max-width: 90%;
   margin: 0 auto;
   color: #666;
-}
-
-/* 确保其他部分不会覆盖轮播图内容 */
-.category-filter-section {
-  position: relative;
-  z-index: 5;
-  margin-top: 0;
-  background-color: #fff;
-  padding: 0 16px;
-  border-bottom: 1px solid #f0f0f0;
-  display: flex;
-  justify-content: flex-start;
-  overflow-x: auto;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: rgba(0, 123, 255, 0.5) rgba(0, 0, 0, 0.1); /* Firefox */
-}
-
-.category-filter-section::-webkit-scrollbar {
-  height: 6px; /* 水平滚动条的高度 */
-  width: 6px; /* 垂直滚动条的宽度 */
-  display: block !important; /* 强制显示滚动条 */
-}
-
-.category-filter-section::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05); /* 滚动条轨道背景 */
-  border-radius: 3px;
-}
-
-.category-filter-section::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 123, 255, 0.5); /* 滚动条颜色 */
-  border-radius: 3px;
-  border: 1px solid rgba(0, 123, 255, 0.2);
-}
-
-.category-filter-section::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 123, 255, 0.7); /* 悬停时的滚动条颜色 */
-}
-
-/* 子类筛选部分 */
-.subcategory-filter-section {
-  position: relative;
-  z-index: 5;
-  margin: 0;
-  padding: 0 24px;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #f0f0f0;
-  overflow-x: auto;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: rgba(0, 123, 255, 0.5) rgba(0, 0, 0, 0.1); /* Firefox */
-}
-
-.subcategory-filter-section::-webkit-scrollbar {
-  height: 6px; /* 水平滚动条的高度 */
-  width: 6px; /* 垂直滚动条的宽度 */
-  display: block !important; /* 强制显示滚动条 */
-}
-
-.subcategory-filter-section::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05); /* 滚动条轨道背景 */
-  border-radius: 3px;
-}
-
-.subcategory-filter-section::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 123, 255, 0.5); /* 滚动条颜色 */
-  border-radius: 3px;
-  border: 1px solid rgba(0, 123, 255, 0.2);
-}
-
-.subcategory-filter-section::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 123, 255, 0.7); /* 悬停时的滚动条颜色 */
-}
-
-.subcategory-filter-section::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
-.subcategory-tabs {
-  display: flex;
-  justify-content: flex-start;
-  padding-left: 24px; /* 设置左边距为24px */
-  padding-right: 16px; /* 添加右边距 */
-  gap: 10px;
-}
-
-.subcategory-tabs .tab-button {
-  padding: 6px 16px;
-  border: 1px solid #e0e0e0;
-  background: #fff;
-  font-size: 14px;
-  cursor: pointer;
-  white-space: nowrap;
-  color: #666;
-  border-radius: 30px;
-  margin-right: 10px;
-  flex-shrink: 0; /* 防止按钮被压缩 */
-  /* 按钮宽度随文本长度自适应 */
-  width: auto;
-  min-width: 60px;
-  max-width: fit-content;
-}
-
-.subcategory-tabs .tab-button.active {
-  color: #fff;
-  background-color: #007bff;
-  border: 1px solid #007bff;
-  font-weight: 500;
-  /* 保持与非活动按钮相同的宽度设置 */
-  width: auto;
-  min-width: 60px;
-  max-width: fit-content;
-}
-
-.breadcrumbs-section {
-  position: relative;
-  z-index: 5;
-  padding: 10px 15px;
-  font-size: 14px;
-  color: #666;
-  margin-top: 5px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-}
-
-.product-grid {
-  position: relative;
-  z-index: 5;
-  margin-top: 10px;
-}
-.category-tabs {
-  display: flex;
-  justify-content: flex-start;
-  padding-left: 40px; /* 设置左边距为16px */
-  padding-right: 16px; /* 添加右边距 */
-  width: auto;
-  /* 移除以下样式，避免与主分类按钮样式冲突 */
-  /* overflow-x: auto; */
-  /* scrollbar-width: none; */ /* Firefox */
-  /* -ms-overflow-style: none; */ /* IE and Edge */
-  /* padding-left: 40px; */ /* 为菜单按钮留出空间 */
-  /* margin-left: -40px; */ /* 使内容从菜单按钮后开始 */
-}
-
-.category-tabs::-webkit-scrollbar {
-  /* 确保滚动条可见 */
-  height: 6px;
-  display: block !important;
-}
-
-
-/* 确保保留原来的 tab-button 样式 */
-.tab-button {
-  padding: 6px 16px;
-  border: 1px solid #e0e0e0;
-  background: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  white-space: nowrap;
-  color: #333;
-  border-radius: 30px;
-  margin-right: 10px;
-  min-width: 80px;
-  transition: all 0.3s ease;
-  flex-shrink: 0; /* 防止按钮被压缩 */
-}
-
-.tab-button.active {
-  color: #fff;
-  background-color: #007bff;
-  border: 1px solid #007bff;
-  font-weight: 500;
-}
-
-.breadcrumbs-section {
-  position: relative;
-  z-index: 5;
-  padding: 10px 15px;
-  font-size: 14px;
-  color: #666;
-  margin-top: 5px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-}
-
-.product-grid {
-  position: relative;
-  z-index: 5;
-  margin-top: 10px;
+  line-height: 1.5;
 }
 
 /* 5. 商品网格 */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
   padding: 16px;
-  justify-content: center;
+  padding-bottom: 60px; /* 底部留白 */
+  margin-top: 10px;
+  position: relative;
+  z-index: 5;
 }
 
-/* 移动端布局 - 在375px到468px之间每行显示两个商品 */
-@media screen and (min-width: 375px) and (max-width: 480px) {
+/* 产品卡片 */
+.product-card {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+
+.product-info {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* 允许信息区域填充剩余空间 */
+}
+
+/* 响应式布局 */
+@media (max-width: 468px) {
   .product-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     padding: 12px;
+    padding-bottom: 60px;
   }
-  
-  /* 调整商品卡片在移动端的宽度 */
+
   .product-card {
-    width: 100%;
+    min-width: 0;
   }
-  
-  .product-card .product-image-container,
-  .product-card .product-image {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1.29; /* 保持图片比例，---重要---- */
+  .carousel-title-chinese {
+    font-size: 18px;
+  }
+  .carousel-title-english {
+    font-size: 14px;
+  }
+  .carousel-description {
+    font-size: 12px;
   }
 }
 
-/* 小屏幕设备 - 小于375px */
-@media screen and (max-width: 374px) {
-  .product-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding: 10px;
-  }
-  
-  .product-card {
-    width: 100%;
-  }
-  
-  .product-card .product-image-container,
-  .product-card .product-image {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1.29;
-  }
-}
-
-/* 平板和桌面设备 - 大于480px */
-@media screen and (min-width: 481px) and (max-width: 768px) {
+@media (min-width: 469px) and (max-width: 768px) {
   .product-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media screen and (min-width: 769px) {
+@media (min-width: 769px) {
   .product-grid {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+
+/* 加载和错误状态 */
+.loading-spinner-container, .error-message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px; /* 确保有足够空间显示 */
+  padding: 20px;
+}
+
+.error-message {
+  color: red;
+  font-size: 16px;
 }

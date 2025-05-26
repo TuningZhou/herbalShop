@@ -5,6 +5,9 @@
   margin-bottom: 16px;
   background-color: var(--tg-theme-bg-color);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
 }
 
 .review-header {

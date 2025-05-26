@@ -54,7 +54,7 @@ const Profile: React.FC = () => {
 
       <div className="profile-card">
         <img
-          src={user.avatar || "/src/assets/images/avatars/avatar@2x.png"}
+          src={user.avatar || "https://raw.githubusercontent.com/TuningZhou/herbalShop/refs/heads/main/src/assets/images/avatars/avatar%403x.png"}
           alt="avatar"
           className="avatar"
         />

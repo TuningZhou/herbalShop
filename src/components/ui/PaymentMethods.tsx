@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./PaymentMethods.css";
+import ApplePayIcon from "@/assets/icons/payment/ApplePay.svg?react";
+import CryptoPayIcon from "@/assets/icons/payment/CryptoPay.svg?react";
+import GooglePayIcon from "@/assets/icons/payment/GooglePay.svg?react";
 import env from "../../config/env";
 
 // 支付方式类型
@@ -19,9 +22,8 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({
   };
 
   // 构建 Cloudflare R2 SVG URL 的函数
-  const getImageUrl = (imageName: string) => {
-    return `${env.r2BaseUrl}/${env.r2ImagesPath2}/${imageName}`;
-  };
+//  const getImageUrl = (imageName: string) => {
+//    return `${env.r2BaseUrl}/${env.r2ImagesPath2}/${imageName}`;  };
 
   return (
     <div className="payment-methods">
@@ -29,45 +31,24 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({
         className={`payment-method ${selectedMethod === "gpay" ? "selected" : ""}`}
         onClick={() => handleMethodSelect("gpay")}
       >
-        <img 
-          src={getImageUrl("GooglePay.svg")} 
-          alt="Google Pay" 
-          className="payment-logo"
-          onError={(e) => {
-            // 使用 env 配置构建回退 URL
-            e.currentTarget.src = getImageUrl("GooglePay.svg"); 
-          }}
-        />
+        {/* 直接使用 SVG 组件 */}
+        <GooglePayIcon className="payment-logo" />
       </div>
       
       <div 
         className={`payment-method ${selectedMethod === "applepay" ? "selected" : ""}`}
         onClick={() => handleMethodSelect("applepay")}
       >
-        <img 
-          src={getImageUrl("ApplePay.svg")} 
-          alt="Apple Pay" 
-          className="payment-logo"
-          onError={(e) => {
-            // 使用 env 配置构建回退 URL
-            e.currentTarget.src = getImageUrl("ApplePay.svg");
-          }}
-        />
+        {/* 直接使用 SVG 组件 */}
+        <ApplePayIcon className="payment-logo" />
       </div>
       
       <div 
         className={`payment-method ${selectedMethod === "crypto" ? "selected" : ""}`}
         onClick={() => handleMethodSelect("crypto")}
       >
-        <img 
-          src={getImageUrl("CryptoPay.svg")} 
-          alt="Crypto" 
-          className="payment-logo"
-          onError={(e) => {
-            // 使用 env 配置构建回退 URL
-            e.currentTarget.src = getImageUrl("CryptoPay.svg"); 
-          }}
-        />
+        {/* 直接使用 SVG 组件 */}
+        <CryptoPayIcon className="payment-logo" />
       </div>
     </div>
   );
