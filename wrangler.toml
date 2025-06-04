@@ -1,0 +1,13 @@
+name = "herbalshop"
+compatibility_date = "2025-05-01"
+
+[site]
+bucket = "./dist"
+
+[[redirects]]
+from = "/herbalShop/*"
+to = "/herbalShop/index.html"
+status = 200
+
+[build]
+command = "npm run build"

@@ -1,11 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-// 检查是否为生产环境构建
-const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--mode=production');
-const basePath = isProduction ? '/herbalShop' : '';
-
-// 创建 404.html 文件（用于非 SPA 路由的真实 404 错误）
+// 创建 404.html 文件
 const notFoundContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,50 +18,54 @@ const notFoundContent = `<!DOCTYPE html>
 <body>
     <h1>404 - Page Not Found</h1>
     <p>The requested resource could not be found.</p>
-    <a href="${basePath}/">Back To Home</a>
+    <a href="/herbalShop/">Back To Home</a>
 </body>
 </html>`;
 
 fs.writeFileSync(path.join(process.cwd(), 'dist', '404.html'), notFoundContent);
 console.log('✅ 已创建 404.html 文件');
 
-// 创建优化的 _headers 文件
-const headersContent = `/*
+// 修复_headers文件，确保正确的MIME类型
+const headersContent = `/herbalShop/*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
   Cache-Control: public, max-age=3600
 
-${basePath}/assets/*.css
-  Content-Type: text/css
+/herbalShop/assets/*.css
+  Content-Type: text/css; charset=utf-8
   Cache-Control: public, max-age=31536000
+  X-Content-Type-Options: nosniff
 
-${basePath}/assets/*.js
-  Content-Type: application/javascript
+/herbalShop/assets/*.js
+  Content-Type: application/javascript; charset=utf-8
   Cache-Control: public, max-age=31536000
+  X-Content-Type-Options: nosniff
 
-${basePath}/assets/*.png
+/herbalShop/assets/*.png
   Content-Type: image/png
   Cache-Control: public, max-age=31536000
 
-${basePath}/assets/*.jpg
+/herbalShop/assets/*.jpg
   Content-Type: image/jpeg
   Cache-Control: public, max-age=31536000
 
-${basePath}/assets/*.svg
+/herbalShop/assets/*.svg
   Content-Type: image/svg+xml
   Cache-Control: public, max-age=31536000
 
-${basePath}/assets/*.woff2
+/herbalShop/assets/*.woff2
   Content-Type: font/woff2
   Cache-Control: public, max-age=31536000
 
-${basePath}/assets/*.woff
+/herbalShop/assets/*.woff
   Content-Type: font/woff
   Cache-Control: public, max-age=31536000
 
-${basePath}/index.html
+/herbalShop/index.html
+  Content-Type: text/html; charset=utf-8
   Cache-Control: no-cache, no-store, must-revalidate
+  X-Frame-Options: DENY
 `;
 
 fs.writeFileSync(path.join(process.cwd(), 'dist', '_headers'), headersContent);
