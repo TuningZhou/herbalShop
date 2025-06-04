@@ -3,10 +3,11 @@
   "include": ["/*"],
   "exclude": [
     "/herbalShop/assets/*",
-    "/herbalShop/index.html",
     "/herbalShop/favicon.ico",
     "/herbalShop/manifest.json",
-    "/herbalShop/robots.txt"
+    "/herbalShop/robots.txt",
+    "/herbalShop/apple-touch-icon.png",
+    "/herbalShop/icon-*.png"
   ]
 }
 {
