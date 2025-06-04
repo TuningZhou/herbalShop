@@ -1,6 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
+// 检查是否为生产环境构建
+const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--mode=production');
+const basePath = isProduction ? '/herbalShop' : '';
+
 // 创建 404.html 文件（用于非 SPA 路由的真实 404 错误）
 const notFoundContent = `<!DOCTYPE html>
 <html lang="en">
@@ -18,7 +22,7 @@ const notFoundContent = `<!DOCTYPE html>
 <body>
     <h1>404 - Page Not Found</h1>
     <p>The requested resource could not be found.</p>
-    <a href="/herbalShop/">BackToHome</a>
+    <a href="${basePath}/">Back To Home</a>
 </body>
 </html>`;
 
@@ -32,35 +36,35 @@ const headersContent = `/*
   Referrer-Policy: no-referrer
   Cache-Control: public, max-age=3600
 
-/herbalShop/assets/*.css
+${basePath}/assets/*.css
   Content-Type: text/css
   Cache-Control: public, max-age=31536000
 
-/herbalShop/assets/*.js
+${basePath}/assets/*.js
   Content-Type: application/javascript
   Cache-Control: public, max-age=31536000
 
-/herbalShop/assets/*.png
+${basePath}/assets/*.png
   Content-Type: image/png
   Cache-Control: public, max-age=31536000
 
-/herbalShop/assets/*.jpg
+${basePath}/assets/*.jpg
   Content-Type: image/jpeg
   Cache-Control: public, max-age=31536000
 
-/herbalShop/assets/*.svg
+${basePath}/assets/*.svg
   Content-Type: image/svg+xml
   Cache-Control: public, max-age=31536000
 
-/herbalShop/assets/*.woff2
+${basePath}/assets/*.woff2
   Content-Type: font/woff2
   Cache-Control: public, max-age=31536000
 
-/herbalShop/assets/*.woff
+${basePath}/assets/*.woff
   Content-Type: font/woff
   Cache-Control: public, max-age=31536000
 
-/herbalShop/index.html
+${basePath}/index.html
   Cache-Control: no-cache, no-store, must-revalidate
 `;
 
