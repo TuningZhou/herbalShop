@@ -1,7 +1,24 @@
 import fs from 'fs';
 import path from 'path';
 
-// 确保_headers文件存在于构建输出目录中，增强版本
+// 创建 404.html 文件
+const notFoundContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+</head>
+<body>
+    <h1>404 - Page Not Found</h1>
+    <p>The requested resource could not be found.</p>
+</body>
+</html>`;
+
+fs.writeFileSync(path.join(process.cwd(), 'dist', '404.html'), notFoundContent);
+console.log('已创建404.html文件');
+
+// 确保_headers文件存在于构建输出目录中
 const headersContent = `
 /*
   X-Frame-Options: DENY
