@@ -1,0 +1,9 @@
+name = "r2-image-handler" # 图片处理Worker名称，替换为您的图片处理Worker名称
+main = "r2-image-handler.ts" # 入口文件
+compatibility_date = "2023-11-15" # 使用当前日期
+
+# R2 存储桶绑定
+[[r2_buckets]]
+binding = "IMAGE_BUCKET" # 在Worker代码中通过 env.IMAGE_BUCKET 访问
+bucket_name = "herbalshop-images" # 您创建的R2存储桶名称
+# preview_bucket_name = "herbalshop-images-preview" # 可选，用于本地开发预览

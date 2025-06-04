@@ -19,5 +19,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*", "src/main.tsx", "types/**/*"]
+  "include": ["src/**/*", "src/main.tsx", "types/**/*", "workers/image-handler-worker/r2-image-handler.ts"]
 }

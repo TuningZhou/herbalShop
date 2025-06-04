@@ -1,0 +1,9 @@
+name = "api-worker" # 替换为您的API Worker名称，确保这个名称是小写、字母数字和短划线
+main = "api-worker.ts" # 将入口文件指向 api-worker.ts
+compatibility_date = "2025-06-04" # 使用当前日期
+
+# D1 数据库绑定
+[[d1_databases]]
+binding = "DB" # 在Worker代码中通过 env.DB 访问
+database_name = "herbalshop-db" # 您在Cloudflare仪表板创建的D1数据库名
+database_id = "862282fd-b0fa-4277-921f-a7aa79c25137" # 您在Cloudflare仪表板创建的D1数据库ID

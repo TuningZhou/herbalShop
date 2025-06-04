@@ -1,0 +1,37 @@
+graph TD
+    subgraph 用户端 (User Client)
+        A[用户浏览器/Telegram Mini App]
+    end
+
+    subgraph Cloudflare CDN
+        B[Cloudflare Pages: herbalShop前端 (React/Vite)]
+    end
+
+    subgraph Cloudflare Workers
+        C[API Worker (api-worker)]
+        D[图片处理 Worker (r2-image-handler)]
+    end
+
+    subgraph Cloudflare存储
+        E[Cloudflare D1: 数据库]
+        F[Cloudflare R2: 图片对象存储]
+    end
+
+    subgraph 开发与部署
+        G[GitHub仓库]
+        H[Wrangler CLI]
+        I[本地开发环境: Vite + Wrangler]
+    end
+
+    A -->|访问前端应用| B
+    B -->|API请求 (fetch)| C
+    B -->|图片操作 (fetch)| D
+    C -->|读写数据| E
+    D -->|读写图片| F
+
+    G -->|CI/CD 自动部署| B
+    H -->|部署/管理| C
+    H -->|部署/管理| D
+    I -->|本地测试| B
+    I -->|本地测试| C
+    I -->|本地测试| D

@@ -1,5 +1,6 @@
 import { Product } from '../../types/Product';
 import env from "../../config/env";
+import { API_WORKER_URL } from '@/config/env';
 
 // 模拟商品数据（生产环境应替换为真实API调用）
 const getImageUrl = (imageName: string) => {
@@ -95,5 +96,18 @@ export const productApi = {
       console.error(`Failed to fetch products for category ${category}:`, error);
       throw error;
     }
+  }
+};
+
+export const fetchProducts = async (): Promise<Product[]> => {
+  try {
+    const response = await fetch(`${API_WORKER_URL}/api/products`);
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to fetch products:', error);
+    throw error;
   }
 };

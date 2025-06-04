@@ -12,7 +12,10 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "preview": "vite preview",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "dev:api": "cd workers/api-worker && wrangler dev",
+    "dev:r2": "cd workers/image-handler-worker && wrangler dev --port 8788",
+    "dev:all": "concurrently \"npm run dev\" \"npm run dev:api\" \"npm run dev:r2\""
   },
   "dependencies": {
     "@telegram-apps/sdk": "^3.9.2",

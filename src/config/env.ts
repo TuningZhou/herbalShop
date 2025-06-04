@@ -1,3 +1,15 @@
+// src/config/env.ts
+export const API_WORKER_URL = import.meta.env.VITE_API_WORKER_URL as string;
+export const R2_IMAGE_HANDLER_URL = import.meta.env.VITE_R2_IMAGE_HANDLER_URL as string;
+
+if (!API_WORKER_URL) {
+  console.warn("VITE_API_WORKER_URL is not defined. API calls may fail.");
+}
+
+if (!R2_IMAGE_HANDLER_URL) {
+  console.warn("VITE_R2_IMAGE_HANDLER_URL is not defined. Image handling may fail.");
+}
+
 // 环境配置
 const config = {
   development: {
