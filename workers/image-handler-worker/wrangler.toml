@@ -1,6 +1,6 @@
-name = "r2-image-handler" # 图片处理Worker名称，替换为您的图片处理Worker名称
+name = "herbalshop-image-handler" # 图片处理Worker名称，替换为您的图片处理Worker名称
 main = "r2-image-handler.ts" # 入口文件
-compatibility_date = "2023-11-15" # 使用当前日期
+compatibility_date = "2025-06-04" # 使用当前日期
 
 # R2 存储桶绑定
 [[r2_buckets]]

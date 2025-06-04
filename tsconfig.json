@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["node", "vite/client", "react", "react-dom"],
+    "types": ["node", "vite/client", "react", "react-dom","@cloudflare/workers-types"],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -19,5 +19,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*", "src/main.tsx", "types/**/*", "workers/image-handler-worker/r2-image-handler.ts"]
+  "include": ["src/**/*", "src/main.tsx", "types/**/*", "workers/image-handler-worker/r2-image-handler.ts"],
+  "exclude": ["node_modules", "dist"]
 }

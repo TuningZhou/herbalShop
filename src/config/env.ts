@@ -18,13 +18,12 @@ const config = {
     r2ImagesPath2: "icons",
     r2ImagesPath: "products" // 新增这一行
   },
-  production: {
-    // 生产环境的 URL 将在部署时设置
-    r2BaseUrl: "https://raw.githubusercontent.com/TuningZhou/herbalShop/refs/heads/main/src/assets/images",
-    r2ImagesPath1: "avatars",
-    r2ImagesPath2: "icons",
-    r2ImagesPath: "products" // 新增这一行
-  }
+// 生产环境配置
+production: {
+  // 使用Cloudflare R2的URL
+  r2BaseUrl: "https://56a18576803dd3b07338f7ef3b9231f5.r2.cloudflarestorage.com/herbalshop-images",
+  r2ImagesPath: "products"
+}
 };
 
 // 根据环境变量选择配置

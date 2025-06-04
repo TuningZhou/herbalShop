@@ -1,4 +1,4 @@
-name = "api-worker" # 替换为您的API Worker名称，确保这个名称是小写、字母数字和短划线
+name = "herbalshop-api-worker" # 替换为您的API Worker名称，确保这个名称是小写、字母数字和短划线
 main = "api-worker.ts" # 将入口文件指向 api-worker.ts
 compatibility_date = "2025-06-04" # 使用当前日期
 

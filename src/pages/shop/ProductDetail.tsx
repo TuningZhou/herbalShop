@@ -12,7 +12,7 @@ import env from "../../config/env";
 // 模拟评论数据
   // 构建 Cloudflare R2 图片 URL 的函数
   const getImageUrl = (imageName: string) => {
-    return `${env.r2BaseUrl}/${env.r2ImagesPath1}/${imageName}`;
+    return `${env.r2BaseUrl}/${env.r2ImagesPath}/${imageName}`;
   };
 
 const mockReviews = [
