@@ -9,24 +9,24 @@ const headersContent = `
   Referrer-Policy: no-referrer
   Cache-Control: public, max-age=3600
 
-/assets/*.css
+/herbalShop/assets/*.css
   Content-Type: text/css
   Cache-Control: public, max-age=31536000
 
-/assets/*.js
+/herbalShop/assets/*.js
   Content-Type: application/javascript
   Cache-Control: public, max-age=31536000
 
-/assets/*.png
+/herbalShop/assets/*.png
   Cache-Control: public, max-age=31536000
 
-/assets/*.jpg
+/herbalShop/assets/*.jpg
   Cache-Control: public, max-age=31536000
 
-/assets/*.svg
+/herbalShop/assets/*.svg
   Cache-Control: public, max-age=31536000
 
-/assets/*.woff2
+/herbalShop/assets/*.woff2
   Cache-Control: public, max-age=31536000
 `;
 
@@ -46,3 +46,10 @@ if (!fs.existsSync(path.join(process.cwd(), 'dist', 'robots.txt'))) {
   fs.writeFileSync(path.join(process.cwd(), 'dist', 'robots.txt'), 'User-agent: *\nAllow: /');
   console.log('已创建robots.txt文件');
 }
+
+// 复制_routes.json到dist目录
+fs.copyFileSync(
+  path.join(process.cwd(), '_routes.json'),
+  path.join(process.cwd(), 'dist', '_routes.json')
+);
+console.log('已复制_routes.json文件到dist目录');
