@@ -7,51 +7,15 @@
     "/herbalShop/manifest.json",
     "/herbalShop/robots.txt",
     "/herbalShop/apple-touch-icon.png",
-    "/herbalShop/icon-*.png"
-  ]
-}
-{
-  "version": 1,
-  "include": ["/*"],
-  "exclude": ["/_headers", "/_redirects"],
-  "routes": [
-    {
-      "src": "/herbalShop/assets/.*\.(css)$",
-      "headers": {
-        "Content-Type": "text/css",
-        "Cache-Control": "public, max-age=31536000"
-      }
-    },
-    {
-      "src": "/herbalShop/assets/.*\.(js)$",
-      "headers": {
-        "Content-Type": "application/javascript",
-        "Cache-Control": "public, max-age=31536000"
-      }
-    },
-    {
-      "src": "/herbalShop/assets/.*\.(png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000"
-      }
-    },
-    {
-      "src": "/herbalShop/index\.html$",
-      "headers": {
-        "Cache-Control": "no-cache"
-      }
-    },
-    {
-      "src": "/herbalShop/assets/.*",
-      "continue": true
-    },
-    {
-      "src": "/herbalShop/.*",
-      "dest": "/herbalShop/index.html"
-    },
-    {
-      "src": "/.*",
-      "dest": "/herbalShop/index.html"
-    }
+    "/herbalShop/icon-*.png",
+    "/herbalShop/*.css",
+    "/herbalShop/*.js",
+    "/herbalShop/*.png",
+    "/herbalShop/*.jpg",
+    "/herbalShop/*.svg",
+    "/herbalShop/*.woff",
+    "/herbalShop/*.woff2",
+    "/herbalShop/*.ttf",
+    "/herbalShop/*.eot"
   ]
 }

@@ -39,20 +39,36 @@ export default defineConfig({
     assetsDir: 'assets',
     minify: 'terser',
     sourcemap: false,
+    // 确保资源文件名包含哈希值
     rollupOptions: {
       output: {
         manualChunks: {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           'vendor-telegram': ['@telegram-apps/sdk', '@telegram-apps/sdk-react'],
         },
-        // 确保资源文件使用正确的扩展名
-        assetFileNames: 'assets/[name]-[hash].[ext]',
+        // 确保资源文件使用正确的扩展名和路径
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name.split('.');
+          const ext = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
+            return `assets/images/[name]-[hash].[ext]`;
+          }
+          if (/woff2?|eot|ttf|otf/i.test(ext)) {
+            return `assets/fonts/[name]-[hash].[ext]`;
+          }
+          return `assets/[name]-[hash].[ext]`;
+        },
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
       },
     },
-    target: 'es2015',
-    cssCodeSplit: false,
-    chunkSizeWarningLimit: 1000,
+    // 确保构建时正确处理公共文件
+    copyPublicDir: true,
+  },
+  // 预览配置（用于本地测试）
+  preview: {
+    port: 4173,
+    host: true,
+    cors: true,
   },
 });
