@@ -33,7 +33,7 @@ const headersContent = `
 fs.writeFileSync(path.join(process.cwd(), 'dist', '_headers'), headersContent);
 console.log('已创建增强版_headers文件');
 
-// 删除以下两行代码，不再生成_redirects文件
+// 注释掉或删除以下两行，不再生成_redirects文件
 // fs.writeFileSync(path.join(process.cwd(), 'dist', '_redirects'), '/* /index.html 200');
 // console.log('已创建_redirects文件');
 

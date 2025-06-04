@@ -4,28 +4,38 @@
   "exclude": ["/_headers", "/_redirects"],
   "routes": [
     {
-      "src": "/herbalShop/assets/.*\\.css",
+      "src": "/herbalShop/assets/.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000"
+      }
+    },
+    {
+      "src": "/herbalShop/assets/.*\\.css$",
       "headers": {
         "Content-Type": "text/css",
         "Cache-Control": "public, max-age=31536000"
       }
     },
     {
-      "src": "/herbalShop/assets/.*\\.js",
+      "src": "/herbalShop/assets/.*\\.js$",
       "headers": {
         "Content-Type": "application/javascript",
         "Cache-Control": "public, max-age=31536000"
       }
     },
     {
-      "src": "/index.html",
+      "src": "/herbalShop/index\\.html$",
       "headers": {
         "Cache-Control": "no-cache"
       }
     },
     {
+      "src": "/herbalShop/.*",
+      "dest": "/herbalShop/index.html"
+    },
+    {
       "src": "/.*",
-      "dest": "/index.html"
+      "dest": "/herbalShop/index.html"
     }
   ]
 }
