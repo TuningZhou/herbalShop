@@ -33,9 +33,9 @@ const headersContent = `
 fs.writeFileSync(path.join(process.cwd(), 'dist', '_headers'), headersContent);
 console.log('已创建增强版_headers文件');
 
-// 确保_redirects文件存在
-fs.writeFileSync(path.join(process.cwd(), 'dist', '_redirects'), '/* /index.html 200');
-console.log('已创建_redirects文件');
+// 删除以下两行代码，不再生成_redirects文件
+// fs.writeFileSync(path.join(process.cwd(), 'dist', '_redirects'), '/* /index.html 200');
+// console.log('已创建_redirects文件');
 
 // 创建一个空的.nojekyll文件，确保GitHub Pages不使用Jekyll处理
 fs.writeFileSync(path.join(process.cwd(), 'dist', '.nojekyll'), '');
