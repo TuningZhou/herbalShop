@@ -40,12 +40,15 @@ interface UserProviderProps {
 }
 
 // 方法一：通过 Attachment Menu 获取用户信息
+// 在 getUserFromTelegramWebApp 函数中添加更好的错误处理
 const getUserFromTelegramWebApp = (): User | null => {
   try {
+    // 等待 Telegram WebApp 完全加载
     if (
       typeof window !== "undefined" &&
       window.Telegram &&
-      window.Telegram.WebApp
+      window.Telegram.WebApp &&
+      window.Telegram.WebApp.initDataUnsafe
     ) {
       const webAppUser = window.Telegram.WebApp.initDataUnsafe?.user;
 

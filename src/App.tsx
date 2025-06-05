@@ -23,31 +23,75 @@ console.log("App is rendering...");
 
 // 初始化Telegram SDK
 const initTelegramSDK = () => {
-  // 检查是否支持返回按钮
-  if (TelegramBackButtonSDK.Support.isSupported()) {
-    // 挂载返回按钮
-    TelegramBackButtonSDK.Lifecycle.mount();
+  // 等待 DOM 完全加载
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initTelegramSDKInternal();
+    });
+  } else {
+    initTelegramSDKInternal();
   }
+};
 
-  // 添加 Telegram WebApp 标识类
-  if (
-    typeof window !== "undefined" &&
-    window.Telegram &&
-    window.Telegram.WebApp
-  ) {
-    document.body.classList.add("with-telegram-webapp");
+const initTelegramSDKInternal = () => {
+  try {
+    // 检查 Telegram WebApp 是否可用
+    if (
+      typeof window !== "undefined" &&
+      window.Telegram &&
+      window.Telegram.WebApp
+    ) {
+      // 初始化 Telegram WebApp
+      window.Telegram.WebApp.ready();
+      
+      // 展开 WebApp 到全屏
+      window.Telegram.WebApp.expand();
+      
+      // 启用关闭确认
+      window.Telegram.WebApp.enableClosingConfirmation();
+      
+      // 检查是否支持返回按钮
+      if (TelegramBackButtonSDK.Support.isSupported()) {
+        // 挂载返回按钮
+        TelegramBackButtonSDK.Lifecycle.mount();
+      }
+
+      // 添加 Telegram WebApp 标识类
+      document.body.classList.add("with-telegram-webapp");
+      
+      console.log('Telegram WebApp 初始化成功');
+    } else {
+      console.warn('Telegram WebApp 不可用');
+    }
+  } catch (error) {
+    console.error('Telegram SDK 初始化失败:', error);
   }
+};
+
+// 动态获取 basename
+const getBasename = () => {
+  // 检查是否在 Telegram 环境中
+  if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
+    return "/"; // Telegram 环境使用根路径
+  }
+  // 非 Telegram 环境使用子路径
+  return "/herbalShop";
 };
 
 // 使用BrowserRouter和Routes
 const App: React.FC = () => {
+  const [basename, setBasename] = React.useState("/");
+  
   // 初始化Telegram SDK
   React.useEffect(() => {
     initTelegramSDK();
+    
+    // 设置正确的 basename
+    setBasename(getBasename());
   }, []);
-// basename="/herbalShop" :这会告诉 BrowserRouter,应用的所有路由都是相对于 /herbalShop 这个基础路径的.
+
   return (
-    <BrowserRouter basename="/herbalShop">
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<Navigate to="/landing-1" replace />} />
         
@@ -68,21 +112,14 @@ const App: React.FC = () => {
               showFooter={true}
               showHeader={false}
             >
-              {/* 子路由将通过 Layout 组件中的 Outlet 渲染 */}
-              {/* <ShopPage /> <-- 移除此行 */}
             </Layout>
           }
         >
           <Route index element={<ProductHome />} />
-
           <Route path="product/:id" element={<ProductDetail />} />
-
           <Route path="cart" element={<Checkout />} />
-
           <Route path="checkout" element={<Checkout />} />
-
           <Route path="user" element={<Settings />} />
-
           <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
