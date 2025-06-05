@@ -35,10 +35,10 @@ const notFoundContent = `<!DOCTYPE html>
 fs.writeFileSync(path.join(process.cwd(), 'dist', '404.html'), notFoundContent);
 console.log('✅ 已创建 404.html 文件');
 
-// 修复 _headers 文件格式
+// 修复 _headers 文件格式 - 添加 Cloudflare 域名支持
 const headersContent = isTelegramBuild ? 
 `/*
-  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://telegram.org https://static.cloudflareinsights.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https:; frame-src 'self' https://telegram.org;
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://telegram.org https://static.cloudflareinsights.com https://*.cloudflareinsights.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https: wss:; frame-src 'self' https://telegram.org;
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
   Cache-Control: public, max-age=3600
@@ -66,35 +66,33 @@ const headersContent = isTelegramBuild ?
 /assets/*.woff2
   Content-Type: font/woff2
   Cache-Control: public, max-age=31536000` :
-`${basePath}*
-  X-Frame-Options: DENY
+`/herbalShop/*
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://*.cloudflareinsights.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https: wss:; frame-src 'self';
   X-Content-Type-Options: nosniff
-  Referrer-Policy: no-referrer
+  X-Frame-Options: SAMEORIGIN
   Cache-Control: public, max-age=3600
 
-${basePath}assets/*.css
+/herbalShop/assets/*.css
   Content-Type: text/css; charset=utf-8
   Cache-Control: public, max-age=31536000
-  X-Content-Type-Options: nosniff
 
-${basePath}assets/*.js
+/herbalShop/assets/*.js
   Content-Type: application/javascript; charset=utf-8
   Cache-Control: public, max-age=31536000
-  X-Content-Type-Options: nosniff
 
-${basePath}assets/*.png
+/herbalShop/assets/*.png
   Content-Type: image/png
   Cache-Control: public, max-age=31536000
 
-${basePath}assets/*.jpg
+/herbalShop/assets/*.jpg
   Content-Type: image/jpeg
   Cache-Control: public, max-age=31536000
 
-${basePath}assets/*.svg
+/herbalShop/assets/*.svg
   Content-Type: image/svg+xml
   Cache-Control: public, max-age=31536000
 
-${basePath}assets/*.woff2
+/herbalShop/assets/*.woff2
   Content-Type: font/woff2
   Cache-Control: public, max-age=31536000`;
 
@@ -104,15 +102,6 @@ console.log('✅ 已创建优化的 _headers 文件');
 // 创建 .nojekyll 文件
 fs.writeFileSync(path.join(process.cwd(), 'dist', '.nojekyll'), '');
 console.log('✅ 已创建 .nojekyll 文件');
-
-// 创建 robots.txt 文件
-if (!fs.existsSync(path.join(process.cwd(), 'dist', 'robots.txt'))) {
-  const robotsContent = isTelegramBuild ? 
-    `User-agent: *\nDisallow: /` : // Telegram Mini App 不需要 SEO
-    `User-agent: *\nAllow: /\n\nSitemap: https://herbalshop.365idesign.uk/herbalShop/sitemap.xml`;
-  fs.writeFileSync(path.join(process.cwd(), 'dist', 'robots.txt'), robotsContent);
-  console.log('✅ 已创建 robots.txt 文件');
-}
 
 // 跨平台文件复制函数
 function copyFileSync(src, dest) {
@@ -145,6 +134,36 @@ if (fs.existsSync(routesSourcePath)) {
   }
 } else {
   console.warn('⚠️ 未找到 _routes.json 文件');
+}
+
+// 优化 index.html 用于 Telegram Mini App
+if (isTelegramBuild) {
+  const indexPath = path.join(process.cwd(), 'dist', 'index.html');
+  
+  if (fs.existsSync(indexPath)) {
+    let indexContent = fs.readFileSync(indexPath, 'utf8');
+    
+    // 确保 Telegram Web App SDK 已启用
+    if (indexContent.includes('<!-- <script src="https://telegram.org/js/telegram-web-app.js"></script> -->')) {
+      indexContent = indexContent.replace(
+        '<!-- <script src="https://telegram.org/js/telegram-web-app.js"></script> -->',
+        '<script src="https://telegram.org/js/telegram-web-app.js?57"></script>'
+      );
+    }
+    
+    // 添加 Telegram 专用 meta 标签
+    const telegramMeta = `
+  <meta name="telegram-web-app" content="true">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">`;
+    
+    indexContent = indexContent.replace(
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />',
+      telegramMeta
+    );
+    
+    fs.writeFileSync(indexPath, indexContent);
+    console.log('✅ 已优化 index.html 用于 Telegram Mini App');
+  }
 }
 
 console.log('🎉 构建后处理完成！');

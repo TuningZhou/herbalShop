@@ -48,25 +48,31 @@ const initTelegramSDK = () => {
           // 挂载返回按钮
           TelegramBackButtonSDK.Lifecycle.mount();
         }
-
-        // 添加 Telegram WebApp 标识类
-        document.body.classList.add("with-telegram-webapp");
         
-        console.log('Telegram WebApp 初始化成功');
+        console.log('Telegram WebApp 初始化完成');
+        console.log('WebApp 信息:', {
+          version: window.Telegram.WebApp.version,
+          platform: window.Telegram.WebApp.platform,
+          colorScheme: window.Telegram.WebApp.colorScheme,
+          themeParams: window.Telegram.WebApp.themeParams,
+          initData: window.Telegram.WebApp.initData,
+          initDataUnsafe: window.Telegram.WebApp.initDataUnsafe
+        });
       } else {
-        console.warn('Telegram WebApp 不可用，可能不在 Telegram 环境中');
+        console.log('Telegram WebApp 不可用，可能在非 Telegram 环境中运行');
       }
     } catch (error) {
       console.error('Telegram SDK 初始化失败:', error);
     }
   };
 
-  // 确保在 DOM 加载完成后初始化
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSDK);
-  } else {
-    // DOM 已经加载完成，延迟一点时间确保所有脚本都已加载
+  // 如果 DOM 已经加载完成，立即初始化
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
     setTimeout(initSDK, 100);
+  } else {
+    // 否则等待 DOM 加载完成
+    document.addEventListener('DOMContentLoaded', initSDK);
+    window.addEventListener('load', initSDK);
   }
 };
 
@@ -74,14 +80,11 @@ const initTelegramSDK = () => {
 const getBasename = () => {
   // 检查是否在 Telegram 环境中
   if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
-    // 在 Telegram 环境中，检查当前 URL 路径
-    const currentPath = window.location.pathname;
-    if (currentPath.includes('/herbalShop')) {
-      return "/herbalShop";
-    }
+    console.log('检测到 Telegram 环境，使用根路径');
     return "/"; // Telegram 环境使用根路径
   }
   // 非 Telegram 环境使用子路径
+  console.log('非 Telegram 环境，使用 /herbalShop 路径');
   return "/herbalShop";
 };
 
@@ -91,16 +94,19 @@ const App: React.FC = () => {
   
   // 初始化Telegram SDK
   React.useEffect(() => {
-    // 先设置 basename，再初始化 SDK
+    // 先设置 basename
     const detectedBasename = getBasename();
-    console.log('检测到的 basename:', detectedBasename);
+    console.log('设置 basename:', detectedBasename);
     setBasename(detectedBasename);
     
     // 延迟初始化 SDK，确保 DOM 准备就绪
     setTimeout(() => {
       initTelegramSDK();
-    }, 100);
+    }, 200);
   }, []);
+
+  console.log('当前 basename:', basename);
+  console.log('当前 URL:', window.location.href);
 
   return (
     <BrowserRouter basename={basename}>
