@@ -24,47 +24,49 @@ console.log("App is rendering...");
 // 初始化Telegram SDK
 const initTelegramSDK = () => {
   // 等待 DOM 完全加载
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initTelegramSDKInternal();
-    });
-  } else {
-    initTelegramSDKInternal();
-  }
-};
+  const initSDK = () => {
+    try {
+      // 检查 Telegram WebApp 是否可用
+      if (
+        typeof window !== "undefined" &&
+        window.Telegram &&
+        window.Telegram.WebApp
+      ) {
+        console.log('Telegram WebApp 检测到，开始初始化...');
+        
+        // 初始化 Telegram WebApp
+        window.Telegram.WebApp.ready();
+        
+        // 展开 WebApp 到全屏
+        window.Telegram.WebApp.expand();
+        
+        // 启用关闭确认
+        window.Telegram.WebApp.enableClosingConfirmation();
+        
+        // 检查是否支持返回按钮
+        if (TelegramBackButtonSDK.Support.isSupported()) {
+          // 挂载返回按钮
+          TelegramBackButtonSDK.Lifecycle.mount();
+        }
 
-const initTelegramSDKInternal = () => {
-  try {
-    // 检查 Telegram WebApp 是否可用
-    if (
-      typeof window !== "undefined" &&
-      window.Telegram &&
-      window.Telegram.WebApp
-    ) {
-      // 初始化 Telegram WebApp
-      window.Telegram.WebApp.ready();
-      
-      // 展开 WebApp 到全屏
-      window.Telegram.WebApp.expand();
-      
-      // 启用关闭确认
-      window.Telegram.WebApp.enableClosingConfirmation();
-      
-      // 检查是否支持返回按钮
-      if (TelegramBackButtonSDK.Support.isSupported()) {
-        // 挂载返回按钮
-        TelegramBackButtonSDK.Lifecycle.mount();
+        // 添加 Telegram WebApp 标识类
+        document.body.classList.add("with-telegram-webapp");
+        
+        console.log('Telegram WebApp 初始化成功');
+      } else {
+        console.warn('Telegram WebApp 不可用，可能不在 Telegram 环境中');
       }
-
-      // 添加 Telegram WebApp 标识类
-      document.body.classList.add("with-telegram-webapp");
-      
-      console.log('Telegram WebApp 初始化成功');
-    } else {
-      console.warn('Telegram WebApp 不可用');
+    } catch (error) {
+      console.error('Telegram SDK 初始化失败:', error);
     }
-  } catch (error) {
-    console.error('Telegram SDK 初始化失败:', error);
+  };
+
+  // 确保在 DOM 加载完成后初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSDK);
+  } else {
+    // DOM 已经加载完成，延迟一点时间确保所有脚本都已加载
+    setTimeout(initSDK, 100);
   }
 };
 

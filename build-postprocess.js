@@ -35,7 +35,7 @@ const notFoundContent = `<!DOCTYPE html>
 fs.writeFileSync(path.join(process.cwd(), 'dist', '404.html'), notFoundContent);
 console.log('✅ 已创建 404.html 文件');
 
-// 为 Telegram Mini App 优化的 _headers 文件
+// 修复 _headers 文件格式
 const headersContent = isTelegramBuild ? 
 `/*
   Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://telegram.org; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https:; frame-src 'self' https://telegram.org;
@@ -43,24 +43,28 @@ const headersContent = isTelegramBuild ?
   X-Frame-Options: SAMEORIGIN
   Cache-Control: public, max-age=3600
 
-*.css
+/assets/*.css
   Content-Type: text/css; charset=utf-8
   Cache-Control: public, max-age=31536000
 
-*.js
+/assets/*.js
   Content-Type: application/javascript; charset=utf-8
   Cache-Control: public, max-age=31536000
 
-*.png
+/assets/*.png
   Content-Type: image/png
   Cache-Control: public, max-age=31536000
 
-*.jpg
+/assets/*.jpg
   Content-Type: image/jpeg
   Cache-Control: public, max-age=31536000
 
-*.svg
+/assets/*.svg
   Content-Type: image/svg+xml
+  Cache-Control: public, max-age=31536000
+
+/assets/*.woff2
+  Content-Type: font/woff2
   Cache-Control: public, max-age=31536000` :
 `${basePath}*
   X-Frame-Options: DENY
@@ -76,7 +80,23 @@ ${basePath}assets/*.css
 ${basePath}assets/*.js
   Content-Type: application/javascript; charset=utf-8
   Cache-Control: public, max-age=31536000
-  X-Content-Type-Options: nosniff`;
+  X-Content-Type-Options: nosniff
+
+${basePath}assets/*.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=31536000
+
+${basePath}assets/*.jpg
+  Content-Type: image/jpeg
+  Cache-Control: public, max-age=31536000
+
+${basePath}assets/*.svg
+  Content-Type: image/svg+xml
+  Cache-Control: public, max-age=31536000
+
+${basePath}assets/*.woff2
+  Content-Type: font/woff2
+  Cache-Control: public, max-age=31536000`;
 
 fs.writeFileSync(path.join(process.cwd(), 'dist', '_headers'), headersContent);
 console.log('✅ 已创建优化的 _headers 文件');
