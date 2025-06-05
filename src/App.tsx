@@ -77,18 +77,11 @@ const initTelegramSDK = () => {
 };
 
 // 动态获取 basename
-// 获取正确的 basename
+// 获取正确的 basename - Workers模式简化
 const getBasename = (): string => {
-  // 检查是否在 Telegram 环境中
-  if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
-    console.log('检测到 Telegram 环境');
-    // 在Telegram环境中，始终使用根路径
-    console.log('Telegram环境 - 使用根路径');
-    return "/";
-  }
-  // 非 Telegram 环境使用子路径
-  console.log('非 Telegram 环境，使用 /herbalShop 路径');
-  return "/herbalShop";
+  // 在 Workers 环境中，始终使用根路径
+  console.log('Workers 环境 - 使用根路径');
+  return "/";
 };
 
 // 使用BrowserRouter和Routes
@@ -97,7 +90,7 @@ const App: React.FC = () => {
   
   // 初始化Telegram SDK
   React.useEffect(() => {
-    // 先设置 basename
+    // 设置 basename
     const detectedBasename = getBasename();
     console.log('设置 basename:', detectedBasename);
     setBasename(detectedBasename);

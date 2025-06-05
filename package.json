@@ -7,8 +7,8 @@
   "scripts": {
     "deploy": "gh-pages -d dist --repo git@github.com:TuningZhou/herbalShop.git",
     "dev": "vite --mode development",
-    "build": "npm run build:telegram",
-    "build:telegram": "vite build --mode telegram && node build-postprocess.js --telegram",
+    "build": "npm run build:app && npm run build:worker",
+    "build:app": "vite build --mode production",
     "build:cloudflare": "vite build --mode production && node build-postprocess.js",
     "build:clean": "rimraf dist",
     "preview": "vite preview",

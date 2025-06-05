@@ -1,7 +1,20 @@
-name = "herbalshop-telegram"
+name = "herbalshop"
+main = "src/worker.ts"
 compatibility_date = "2024-01-01"
-pages_build_output_dir = "dist"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./dist"
+serving = { directory = "./dist" }
+entry-point = "workers"
+
+[vars]
+ENVIRONMENT = "production"
+
+[[routes]]
+pattern = "herbalshop.365idesign.uk/*"
+zone_name = "365idesign.uk"
 
 [env.production.vars]
 VITE_MODE = "telegram"
-NODE_ENV = "telegram"
+NODE_ENV = "production"
