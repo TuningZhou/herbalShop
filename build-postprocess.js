@@ -38,7 +38,7 @@ console.log('✅ 已创建 404.html 文件');
 // 修复 _headers 文件格式
 const headersContent = isTelegramBuild ? 
 `/*
-  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://telegram.org; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https:; frame-src 'self' https://telegram.org;
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://telegram.org https://static.cloudflareinsights.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https:; frame-src 'self' https://telegram.org;
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
   Cache-Control: public, max-age=3600

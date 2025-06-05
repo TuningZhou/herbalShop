@@ -74,6 +74,11 @@ const initTelegramSDK = () => {
 const getBasename = () => {
   // 检查是否在 Telegram 环境中
   if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
+    // 在 Telegram 环境中，检查当前 URL 路径
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/herbalShop')) {
+      return "/herbalShop";
+    }
     return "/"; // Telegram 环境使用根路径
   }
   // 非 Telegram 环境使用子路径
@@ -86,10 +91,15 @@ const App: React.FC = () => {
   
   // 初始化Telegram SDK
   React.useEffect(() => {
-    initTelegramSDK();
+    // 先设置 basename，再初始化 SDK
+    const detectedBasename = getBasename();
+    console.log('检测到的 basename:', detectedBasename);
+    setBasename(detectedBasename);
     
-    // 设置正确的 basename
-    setBasename(getBasename());
+    // 延迟初始化 SDK，确保 DOM 准备就绪
+    setTimeout(() => {
+      initTelegramSDK();
+    }, 100);
   }, []);
 
   return (
