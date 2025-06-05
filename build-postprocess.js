@@ -1,13 +1,17 @@
 import fs from 'fs';
 import path from 'path';
 
+// 检查是否为 Telegram 构建模式
+const isTelegramBuild = process.argv.includes('--telegram') || process.env.VITE_MODE === 'telegram';
+const basePath = isTelegramBuild ? './' : '/herbalShop/';
+
 // 创建 404.html 文件
 const notFoundContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - 页面未找到</title>
+    <title>404 - Page Not Found</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
         h1 { color: #333; }
@@ -18,55 +22,42 @@ const notFoundContent = `<!DOCTYPE html>
 <body>
     <h1>404 - Page Not Found</h1>
     <p>The requested resource could not be found.</p>
-    <a href="/herbalShop/">Back To Home</a>
+    <a href="${basePath}">Back To Home</a>
 </body>
 </html>`;
 
 fs.writeFileSync(path.join(process.cwd(), 'dist', '404.html'), notFoundContent);
 console.log('✅ 已创建 404.html 文件');
 
-// 修复_headers文件，确保正确的MIME类型
-const headersContent = `/herbalShop/*
+// 为 Telegram Mini App 优化的 _headers 文件
+const headersContent = isTelegramBuild ? 
+`/*
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; font-src 'self' data:;
+  X-Content-Type-Options: nosniff
+  Cache-Control: public, max-age=3600
+
+*.css
+  Content-Type: text/css; charset=utf-8
+  Cache-Control: public, max-age=31536000
+
+*.js
+  Content-Type: application/javascript; charset=utf-8
+  Cache-Control: public, max-age=31536000` :
+`${basePath}*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
   Cache-Control: public, max-age=3600
 
-/herbalShop/assets/*.css
+${basePath}assets/*.css
   Content-Type: text/css; charset=utf-8
   Cache-Control: public, max-age=31536000
   X-Content-Type-Options: nosniff
 
-/herbalShop/assets/*.js
+${basePath}assets/*.js
   Content-Type: application/javascript; charset=utf-8
   Cache-Control: public, max-age=31536000
-  X-Content-Type-Options: nosniff
-
-/herbalShop/assets/*.png
-  Content-Type: image/png
-  Cache-Control: public, max-age=31536000
-
-/herbalShop/assets/*.jpg
-  Content-Type: image/jpeg
-  Cache-Control: public, max-age=31536000
-
-/herbalShop/assets/*.svg
-  Content-Type: image/svg+xml
-  Cache-Control: public, max-age=31536000
-
-/herbalShop/assets/*.woff2
-  Content-Type: font/woff2
-  Cache-Control: public, max-age=31536000
-
-/herbalShop/assets/*.woff
-  Content-Type: font/woff
-  Cache-Control: public, max-age=31536000
-
-/herbalShop/index.html
-  Content-Type: text/html; charset=utf-8
-  Cache-Control: no-cache, no-store, must-revalidate
-  X-Frame-Options: DENY
-`;
+  X-Content-Type-Options: nosniff`;
 
 fs.writeFileSync(path.join(process.cwd(), 'dist', '_headers'), headersContent);
 console.log('✅ 已创建优化的 _headers 文件');
@@ -100,3 +91,4 @@ try {
 }
 
 console.log('🎉 构建后处理完成！');
+console.log(`📦 构建模式: ${isTelegramBuild ? 'Telegram Mini App' : 'Web'}`);

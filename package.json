@@ -8,6 +8,7 @@
     "deploy": "gh-pages -d dist --repo git@github.com:TuningZhou/herbalShop.git",
     "dev": "vite",
     "build": "tsc --noEmit && vite build --mode production && node build-postprocess.js",
+    "build:telegram": "tsc --noEmit && vite build --mode telegram && node build-postprocess.js",
     "build:clean": "if exist dist rmdir /s /q dist && if exist node_modules\\.vite rmdir /s /q node_modules\\.vite && npm run build",
     "dev:https": "cross-env HTTPS=true vite",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
