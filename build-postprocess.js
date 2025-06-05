@@ -114,53 +114,37 @@ if (!fs.existsSync(path.join(process.cwd(), 'dist', 'robots.txt'))) {
   console.log('✅ 已创建 robots.txt 文件');
 }
 
-// 复制 _routes.json 到 dist 目录
-if (fs.existsSync(path.join(process.cwd(), '_routes.json'))) {
-  fs.copyFileSync(
-    path.join(process.cwd(), '_routes.json'),
-    path.join(process.cwd(), 'dist', '_routes.json')
-  );
-  console.log('✅ 已复制 _routes.json 文件到 dist 目录');
+// 跨平台文件复制函数
+function copyFileSync(src, dest) {
+  try {
+    const data = fs.readFileSync(src);
+    fs.writeFileSync(dest, data);
+    return true;
+  } catch (error) {
+    console.error(`❌ 复制文件失败: ${src} -> ${dest}`, error.message);
+    return false;
+  }
 }
 
-// 验证 _routes.json 格式
-try {
-  const routesPath = path.join(process.cwd(), 'dist', '_routes.json');
-  if (fs.existsSync(routesPath)) {
-    const routesContent = fs.readFileSync(routesPath, 'utf8');
-    JSON.parse(routesContent);
-    console.log('✅ _routes.json 格式验证通过');
-  }
-} catch (error) {
-  console.error('❌ _routes.json 格式错误:', error.message);
-  process.exit(1);
-}
+// 复制 _routes.json 文件到 dist 目录
+const routesSourcePath = path.join(process.cwd(), '_routes.json');
+const routesDestPath = path.join(process.cwd(), 'dist', '_routes.json');
 
-// Telegram Mini App 专用：修改 index.html 添加必要的 meta 标签
-if (isTelegramBuild) {
-  const indexPath = path.join(process.cwd(), 'dist', 'index.html');
-  if (fs.existsSync(indexPath)) {
-    let indexContent = fs.readFileSync(indexPath, 'utf8');
+if (fs.existsSync(routesSourcePath)) {
+  if (copyFileSync(routesSourcePath, routesDestPath)) {
+    console.log('✅ 已复制 _routes.json 文件到 dist 目录');
     
-    // 确保 Telegram Web App SDK 被启用
-    indexContent = indexContent.replace(
-      '<!--<script src="https://telegram.org/js/telegram-web-app.js?57"></script>-->',
-      '<script src="https://telegram.org/js/telegram-web-app.js?57"></script>'
-    );
-    
-    // 添加 Telegram 专用 meta 标签
-    const telegramMeta = `
-  <meta name="telegram-web-app" content="true">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">`;
-    
-    indexContent = indexContent.replace(
-      '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />',
-      telegramMeta
-    );
-    
-    fs.writeFileSync(indexPath, indexContent);
-    console.log('✅ 已优化 index.html 用于 Telegram Mini App');
+    // 验证 _routes.json 格式
+    try {
+      const routesContent = fs.readFileSync(routesDestPath, 'utf8');
+      JSON.parse(routesContent);
+      console.log('✅ _routes.json 格式验证通过');
+    } catch (error) {
+      console.warn('⚠️ _routes.json 格式可能有问题:', error.message);
+    }
   }
+} else {
+  console.warn('⚠️ 未找到 _routes.json 文件');
 }
 
 console.log('🎉 构建后处理完成！');
