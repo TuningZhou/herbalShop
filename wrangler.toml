@@ -1,9 +1,8 @@
-name = "herbalshop"
-compatibility_date = "2025-05-01"
-
-# Cloudflare Pages 配置
+name = "herbalshop-telegram"
+compatibility_date = "2024-01-01"
 pages_build_output_dir = "dist"
 
-# 环境变量（如果需要）
+# Telegram Mini App 专用配置
 [env.production]
-# 在这里添加生产环境变量
+VITE_MODE = "telegram"
+VITE_BASE_URL = "./"

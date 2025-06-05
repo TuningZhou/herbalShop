@@ -7,13 +7,15 @@ import fs from 'fs';
 import path from 'path';
 
 export default defineConfig(({ mode }) => {
-  // 为 Telegram Mini App 使用相对路径
-  const base = mode === 'telegram' ? './' : '/herbalShop/';
+  // 为 Telegram Mini App 专用配置
+  const isTelegramMode = mode === 'telegram';
+  const base = isTelegramMode ? './' : '/herbalShop/';
   
   return {
     plugins: [ 
       react(),
-      basicSsl(),
+      // 只在开发模式使用 SSL
+      ...(mode === 'development' ? [basicSsl()] : []),
       svgr({
         svgrOptions: {
           icon: true,
@@ -32,12 +34,10 @@ export default defineConfig(({ mode }) => {
       port: 3333,
       open: true,
       cors: true,
-      https: true,
+      https: mode === 'development',
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Cache-Control': 'no-store',
-        // 为 Telegram Mini App 添加 CSP 头
-        'Content-Security-Policy': "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; font-src 'self' data:;",
       },
     },  
     build: {
@@ -45,6 +45,8 @@ export default defineConfig(({ mode }) => {
       assetsDir: 'assets',
       minify: 'terser',
       sourcemap: false,
+      // Telegram Mini App 优化配置
+      target: isTelegramMode ? 'es2015' : 'esnext',
       rollupOptions: {
         output: {
           manualChunks: {
@@ -68,6 +70,10 @@ export default defineConfig(({ mode }) => {
       },
       cssCodeSplit: false, // 重要：将所有 CSS 合并到一个文件中
       emptyOutDir: true
+    },
+    // Telegram Mini App 专用环境变量
+    define: {
+      __TELEGRAM_MODE__: isTelegramMode,
     }
   };
 });
