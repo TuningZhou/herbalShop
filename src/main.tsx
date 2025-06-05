@@ -22,24 +22,41 @@ window.addEventListener('unhandledrejection', (event) => {
   console.error('未处理的 Promise 拒绝:', event.reason);
 });
 
-// 调试信息
-console.log('环境信息:', {
-  userAgent: navigator.userAgent,
-  url: window.location.href,
-  pathname: window.location.pathname,
-  search: window.location.search,
-  hash: window.location.hash,
-  telegramAvailable: !!(window as any).Telegram?.WebApp
-});
+// 等待Telegram WebApp准备就绪
+const initApp = () => {
+  // 调试信息
+  console.log('环境信息:', {
+    userAgent: navigator.userAgent,
+    url: window.location.href,
+    pathname: window.location.pathname,
+    search: window.location.search,
+    hash: window.location.hash,
+    telegramAvailable: !!(window as any).Telegram?.WebApp,
+    telegramWebApp: (window as any).Telegram?.WebApp
+  });
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <AuthProvider>
-      <UserProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
-      </UserProvider>
-    </AuthProvider>
-  </React.StrictMode>,
-);
+  // 检查Telegram WebApp是否可用
+  if ((window as any).Telegram?.WebApp) {
+    console.log('Telegram WebApp 可用，等待ready事件');
+    (window as any).Telegram.WebApp.ready();
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+      <AuthProvider>
+        <UserProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </UserProvider>
+      </AuthProvider>
+    </React.StrictMode>,
+  );
+};
+
+// 等待DOM和Telegram SDK准备就绪
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
