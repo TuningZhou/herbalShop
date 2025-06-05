@@ -14,7 +14,6 @@
     "build:cloudflare": "tsc --noEmit && vite build --mode production && node build-postprocess.js",
     "deploy:telegram": "npm run build:telegram && echo 'Telegram Mini App build ready for Cloudflare Pages deployment'",
     "preview:telegram": "cross-env NODE_ENV=telegram vite preview --mode telegram",
-    "build:clean": "if exist dist rmdir /s /q dist && if exist node_modules\\.vite rmdir /s /q node_modules\\.vite && npm run build",
     "dev:https": "cross-env HTTPS=true vite",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
