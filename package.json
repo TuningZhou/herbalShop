@@ -7,8 +7,10 @@
   "scripts": {
     "deploy": "gh-pages -d dist --repo git@github.com:TuningZhou/herbalShop.git",
     "dev": "vite",
-    "build": "tsc --noEmit && vite build --mode production && node build-postprocess.js",
-    "build:telegram": "cross-env NODE_ENV=telegram tsc --noEmit && vite build --mode telegram && node build-postprocess.js --telegram",
+    "build": "tsc --noEmit && vite build --mode telegram && node build-postprocess.js --telegram",
+    "build:web": "tsc --noEmit && vite build --mode production && node build-postprocess.js",
+    "build:telegram": "tsc --noEmit && vite build --mode telegram && node build-postprocess.js --telegram",
+    "build:clean": "if exist dist rmdir /s /q dist && if exist node_modules\\.vite rmdir /s /q node_modules\\.vite && npm run build",
     "build:cloudflare": "tsc --noEmit && vite build --mode production && node build-postprocess.js",
     "deploy:telegram": "npm run build:telegram && echo 'Telegram Mini App build ready for Cloudflare Pages deployment'",
     "preview:telegram": "cross-env NODE_ENV=telegram vite preview --mode telegram",
