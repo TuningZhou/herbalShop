@@ -12,7 +12,7 @@
     "build:telegram": "vite build --mode telegram && node build-postprocess.js --telegram",
     "build:clean": "rimraf dist",
     "preview": "vite preview",
-    "deploy": "npm run build && wrangler pages deploy",
+    "deploy": "npm run build && wrangler deploy",
     "deploy:workers": "npm run build && wrangler deploy",
     "deploy:pages": "gh-pages -d dist --repo git@github.com:TuningZhou/herbalShop.git",
     "dev:workers": "wrangler dev",
