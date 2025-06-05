@@ -7,8 +7,8 @@ import fs from 'fs';
 import path from 'path';
 
 export default defineConfig(({ mode }) => {
-  // Workers模式始终使用相对路径
-  const base = './';
+  // Workers 环境始终使用根路径
+  const base = '/';
   
   return {
     plugins: [ 
@@ -44,26 +44,25 @@ export default defineConfig(({ mode }) => {
       assetsDir: 'assets',
       minify: 'terser',
       sourcemap: false,
-      target: 'es2020',
+      target: 'es2015',
       rollupOptions: {
         output: {
           manualChunks: {
             'vendor-react': ['react', 'react-dom'],
             'vendor-router': ['react-router-dom'],
-            'vendor-telegram': ['@telegram-apps/sdk']
+            'vendor-telegram': ['@telegram-apps/sdk', '@telegram-apps/sdk-react'],
           },
-          chunkFileNames: 'assets/[name]-[hash].js',
-          entryFileNames: 'assets/[name]-[hash].js',
-          assetFileNames: (assetInfo) => {
-            const info = assetInfo.name?.split('.') || [];
-            const ext = info[info.length - 1];
-            if (/\.(css)$/.test(assetInfo.name || '')) {
-              return `assets/style-[hash].${ext}`;
-            }
-            return `assets/[name]-[hash].${ext}`;
-          }
-        }
-      }
-    }
+        },
+      },
+      terserOptions: {
+        compress: {
+          drop_console: mode === 'production',
+          drop_debugger: mode === 'production',
+        },
+      },
+    },
+    define: {
+      __DEV__: mode === 'development',
+    },
   };
 });

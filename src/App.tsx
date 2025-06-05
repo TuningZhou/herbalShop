@@ -79,7 +79,7 @@ const initTelegramSDK = () => {
 // 动态获取 basename
 // 获取正确的 basename - Workers模式简化
 const getBasename = (): string => {
-  // 在 Workers 环境中，始终使用根路径
+  // Workers 环境中始终使用根路径
   console.log('Workers 环境 - 使用根路径');
   return "/";
 };
