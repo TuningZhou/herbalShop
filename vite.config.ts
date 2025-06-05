@@ -9,7 +9,8 @@ import path from 'path';
 export default defineConfig(({ mode }) => {
   // 为 Telegram Mini App 专用配置
   const isTelegramMode = mode === 'telegram';
-  const base = isTelegramMode ? './' : '/herbalShop/';
+  // 为自定义域名优化
+  const base = isTelegramMode ? '/' : '/herbalShop/';
   
   return {
     plugins: [ 

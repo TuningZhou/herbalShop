@@ -6,39 +6,21 @@ const isTelegramBuild = process.argv.includes('--telegram') ||
                        process.env.VITE_MODE === 'telegram' ||
                        process.env.NODE_ENV === 'telegram';
 
-const basePath = isTelegramBuild ? './' : '/herbalShop/';
+// 为自定义域名优化路径设置
+const basePath = isTelegramBuild ? '/' : '/herbalShop/';
 
 console.log(`🚀 构建模式: ${isTelegramBuild ? 'Telegram Mini App' : 'Web'}`);
 console.log(`📁 基础路径: ${basePath}`);
 
-// 创建 404.html 文件
-const notFoundContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        h1 { color: #333; }
-        p { color: #666; }
-        a { color: #007AFF; text-decoration: none; }
-    </style>
-</head>
-<body>
-    <h1>404 - Page Not Found</h1>
-    <p>The requested resource could not be found.</p>
-    <a href="${basePath}">Back To Home</a>
-</body>
-</html>`;
-
-fs.writeFileSync(path.join(process.cwd(), 'dist', '404.html'), notFoundContent);
-console.log('✅ 已创建 404.html 文件');
-
-// 修复 _headers 文件格式 - 添加 Cloudflare 域名支持
-const headersContent = isTelegramBuild ? 
-`/*
+// 修复 _headers 文件格式 - 支持根路径和子路径
+const headersContent = `/*
   Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://telegram.org https://static.cloudflareinsights.com https://*.cloudflareinsights.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https: wss:; frame-src 'self' https://telegram.org;
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Cache-Control: public, max-age=3600
+
+/herbalShop/*
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://*.cloudflareinsights.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https: wss:; frame-src 'self';
   X-Content-Type-Options: nosniff
   X-Frame-Options: SAMEORIGIN
   Cache-Control: public, max-age=3600
@@ -50,27 +32,6 @@ const headersContent = isTelegramBuild ?
 /assets/*.js
   Content-Type: application/javascript; charset=utf-8
   Cache-Control: public, max-age=31536000
-
-/assets/*.png
-  Content-Type: image/png
-  Cache-Control: public, max-age=31536000
-
-/assets/*.jpg
-  Content-Type: image/jpeg
-  Cache-Control: public, max-age=31536000
-
-/assets/*.svg
-  Content-Type: image/svg+xml
-  Cache-Control: public, max-age=31536000
-
-/assets/*.woff2
-  Content-Type: font/woff2
-  Cache-Control: public, max-age=31536000` :
-`/herbalShop/*
-  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://*.cloudflareinsights.com; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https: wss:; frame-src 'self';
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
-  Cache-Control: public, max-age=3600
 
 /herbalShop/assets/*.css
   Content-Type: text/css; charset=utf-8

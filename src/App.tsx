@@ -77,11 +77,20 @@ const initTelegramSDK = () => {
 };
 
 // 动态获取 basename
-const getBasename = () => {
+// 获取正确的 basename
+const getBasename = (): string => {
   // 检查是否在 Telegram 环境中
   if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
-    console.log('检测到 Telegram 环境，使用根路径');
-    return "/"; // Telegram 环境使用根路径
+    console.log('检测到 Telegram 环境');
+    // 在Telegram环境中，根据当前域名判断
+    const hostname = window.location.hostname;
+    if (hostname.includes('herbalshop.365idesign.uk')) {
+      console.log('Telegram环境 - 使用根路径');
+      return "/"; // 自定义域名使用根路径
+    } else {
+      console.log('Telegram环境 - 使用子路径');
+      return "/herbalShop"; // Cloudflare Pages默认域名使用子路径
+    }
   }
   // 非 Telegram 环境使用子路径
   console.log('非 Telegram 环境，使用 /herbalShop 路径');
